@@ -1,31 +1,100 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome USER_NAME,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+# Dr Heart Clinic - Portfolio 3
+***
+ 
+## Table of Contents:
+* [What does it do and what does it need to fulfill?](#what-does-it-do-and-what-does-it-need-to-fulfill)
+* [Functionality of Project](#functionality-of-project)
+* [Wireframing](#wireframing)
+* [Technology Used](#technology-used)
+* [Database](#database)
+* [Features](#features)
+   * [Future Features](#future-features)
+* [Testing](#testing)
+   * [Defensive Design](#defensive-design)
+* [Deployment](#deployment)
+* [Credits](#credits)
+   * [Special Thanks & Acknowledgements](#special-thanks--acknowledgements)
+ 
+***
+ 
+## Welcome to Dr. Heart Clinic!
+ 
+![show final site image here](assets/docs/image.png)
+ 
+***
+ 
+## What does it do and what does it need to fulfill?
+lorem
+ 
+### Functionality of Project
+This application contains ....
+ 
+[Back to top](#table-of-contents)
+ 
+## Chart
+ 
+The wireframes were created for each individual page on three different screen sizes. They live below.
+ 
+<details>
+<summary>Chart</summary>
+ 
+</details>
+ 
+[Back to Top](#table-of-contents)
+ 
+## Technology Used
+ 
+#### Languages, Frameworks, Editors & Version Control:
+ 
+* add notes here on techstack...
+ 
+#### Tools Used:
+ 
+* add notes here on tools used to assist in developing the project...
+ 
+## Database
+ 
+#### Database Schema:
+ 
+Detail the db schema here (if applicable)....images, thoughts behind fks etc
+ 
+## Features
+ 
+The project boasts several key features:
+* Create: ...
+ 
+[Back to Top](#table-of-contents)
+ 
+#### Future Features:
+ 
+* Detail future implementations here...
+ 
+## Testing
+ 
+Testing was ...
+ 
+#### Found Bugs and Fixes:
+ 
+During manual testing...
+ 
+[Back to Top](#table-of-contents)
+ 
+## Deployment
+ 
+Detail deployment here...
+ 
+[Back to Top](#table-of-contents)
+ 
+## Credits
+ 
+* Detail credits
+ 
+[Back to Top](#table-of-contents)
+ 
+#### Special Thanks & Acknowledgements:
+ 
+* Team 11 🤜
+ 
+###### <i>Disclaimer: This project was created for educational use only as part of Code Institute's 2021 Christmas Hackathon</i>
+ 
+[Back to Top](#table-of-contents)
