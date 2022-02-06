@@ -19,17 +19,17 @@ def get_data():
     """
     Function to get the data from the application user
     """
-    print('Please type: Name,test_keyword')
+    print('\nPlease type: Name,test_keyword')
     print('Test keywords: FV= first visit, CKU= check-up, ECH= echocardio')
-    print('EKG= electrocardiogram, STT= stress test, HOL= holter\n')
-    print('Example: John Doe,FV')
+    print('EKG= electrocardiogram, STT= stress test, HOL= holter')
+    print('Example: John Doe,FV\n')
     while True:
         u_input = input("Patient's data:\n")
         us_input = u_input.split(',')
         user_input = [x.upper() for x in us_input]
-        print(user_input)
         if validate_data(user_input):
-            print('ok')
+            print('Valid data!')
+            time.sleep(1)
             break
     return user_input
 
@@ -72,7 +72,8 @@ def update_last_worksheet(data):
     """
     last_worksheet = get_last_worksheet()
     last_worksheet.append_row(data)
-    print('Worksheet updated\n')
+    print('Worksheet updated!\n')
+    time.sleep(1)
 
 
 # Based on Derek Shidler Tutorial
@@ -104,6 +105,7 @@ def close_worksheet():
     elif close_input == 'N':
         print('You still can update')
         time.sleep(1)
+        update_file()
     else:
         print('Invalid choice. Type Y or N only\n')
         time.sleep(1)
@@ -117,20 +119,20 @@ def update_file():
     - to calculate data and close the worksheet to create a new one
     - to save and exit the application
     """
-    print('A -update file| B -close and calc worksheet| C -exit app')
-    update_input = input('Choose an option: \n').upper()
-    if update_input == 'A':
+    print('Choose an option:')
+    update = input('A-update file|B-tally & calc wsheet|C-exit app\n').upper()
+    if update == 'A':
         add_new_data()
-    elif update_input == 'B':
+    elif update == 'B':
         close_worksheet()
-    elif update_input == 'C':
-        print('Saving your work...')
+    elif update == 'C':
+        print('Saving your work... please wait!')
         time.sleep(2)
         print('Exiting app...')
         time.sleep(1)
         print('Bye!')
     else:
-        print('Only A, B, or C is allowed')
+        print('Choose A, B, or C only')
         update_file()
 
 
@@ -139,13 +141,37 @@ def add_new_data():
     Function to get data and update file
     """
     print('Please choose the following options:')
-    name = input('A -add new data| B -go back\n').upper()
-    if name == 'A':
-        data = get_data()
-        patient_data = list(data)
-        update_last_worksheet(patient_data)
-    if name == 'B':
-        print(f'Opps your name is {name}')
+    while True:
+        name = input('A -add new data| B -go back\n').upper()
+        if name == 'A':
+            data = get_data()
+            patient_data = list(data)
+            update_last_worksheet(patient_data)
+        elif name == 'B':
+            print('Back to update file or calculate worksheet\n')
+            time.sleep(2)
+            update_file()
+            break
+        else:
+            print('Choose A or B only.')
+            time.sleep(1)
+
+
+def create_new_worksheet():
+    """
+    To create a new worksheet
+    """
+    title = input('Type file name for the new worksheet:\n')
+    print('Creating new worksheet, please wait ...\n')
+    time.sleep(2)
+    new_worksheet = CLINIC_SHEET.add_worksheet(title, rows=100, cols=3)
+    new_worksheet.update('A1:B1', [['NAME', 'TEST']])
+    new_worksheet.format('A1:B1', {
+        'textFormat': {
+            'bold': True
+        }
+    })
+    print('New worksheet is created!\n')
 
 
 def check_last_worksheet():
@@ -156,16 +182,7 @@ def check_last_worksheet():
     check_wksheet = last_worksheet.find('CLOSED')
     if check_wksheet:
         print('You have to create a new worksheet')
-        title = input('Type file name for the new worksheet:\n')
-        print('Creating new worksheet, please wait ...\n')
-        new_worksheet = CLINIC_SHEET.add_worksheet(title, rows=100, cols=3)
-        new_worksheet.update('A1:B1', [['NAME', 'TEST']])
-        new_worksheet.format('A1:B1', {
-            'textFormat': {
-                'bold': True
-            }
-        })
-        print('New worksheet is created!\n')
+        create_new_worksheet()
     else:
         print('Found the last file... \n')
 
