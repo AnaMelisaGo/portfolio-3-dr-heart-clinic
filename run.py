@@ -1,3 +1,4 @@
+import time
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -13,6 +14,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 CLINIC_SHEET = GSPREAD_CLIENT.open('dr-heart-clinic')
 
 
+# From Love Sandwich
 def get_data():
     """
     Function to get the data from the application user
@@ -23,6 +25,7 @@ def get_data():
     return user_input
 
 
+# From Love Sandwich
 def validate_data(value):
     """
     To validate input value
@@ -37,6 +40,7 @@ def validate_data(value):
         print(f'Invalid data: {e}')
 
 
+# Own code
 def get_last_worksheet():
     """
     To get the last worksheet
@@ -45,6 +49,7 @@ def get_last_worksheet():
     return worksheet
 
 
+# From Love Sandwich
 def update_last_worksheet(data):
     """
     To add new data to the last worksheet
@@ -54,6 +59,7 @@ def update_last_worksheet(data):
     print('Worksheet updated\n')
 
 
+# Based on Derek Shidler Tutorial
 def close_worksheet():
     """
     To close worksheet and prepare it for calculation
@@ -62,13 +68,27 @@ def close_worksheet():
     close_input = input('Close worksheet? Y or N:\n').upper()
     if close_input == 'Y':
         last_worksheet.append_row(['CLOSED'])
-        # close_cell = last_worksheet.find('CLOSED')
-        # close_cell.format()
+        # from pretty printed Tutorials
+        close_cell = last_worksheet.find('CLOSED').row
+        last_worksheet.format(f'A{close_cell}', {
+            'textFormat': {
+                'bold': True
+            },
+            'backgroundColor': {
+                'red': 1,
+                'green': 0.0,
+                'blue': 0.0
+            }
+        })
         print('Worksheet closed')
+        # From Derek Shidler Tutorial
+        time.sleep(1)
     elif close_input == 'N':
         print('You still can update')
+        time.sleep(1)
     else:
         print('Invalid choice. Type Y or N only\n')
+        time.sleep(1)
         close_worksheet()
 
 
@@ -94,25 +114,6 @@ def check_last_worksheet():
         print('Can update')
 
 
-def testing_format_cell():
-    """
-    test
-    """
-    last_worksheet = get_last_worksheet()
-    close_cell = last_worksheet.find('CLOSED').row
-    print(close_cell)
-    last_worksheet.format(f'A{close_cell}', {
-            'textFormat': {
-                'bold': True
-            },
-            'backgroundColor': {
-                'red': 1,
-                'green': 0.0,
-                'blue': 0.0
-            }
-        })
-
-
 def main():
     """
     Main function
@@ -125,4 +126,4 @@ print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
 # main()
-testing_format_cell()
+close_worksheet()
