@@ -94,6 +94,25 @@ def check_last_worksheet():
         print('Can update')
 
 
+def testing_format_cell():
+    """
+    test
+    """
+    last_worksheet = get_last_worksheet()
+    close_cell = last_worksheet.find('CLOSED').row
+    print(close_cell)
+    last_worksheet.format(f'A{close_cell}', {
+            'textFormat': {
+                'bold': True
+            },
+            'backgroundColor': {
+                'red': 1,
+                'green': 0.0,
+                'blue': 0.0
+            }
+        })
+
+
 def main():
     """
     Main function
@@ -106,4 +125,4 @@ print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
 # main()
-check_last_worksheet()
+testing_format_cell()
