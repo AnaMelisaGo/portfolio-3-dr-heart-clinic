@@ -19,9 +19,18 @@ def get_data():
     """
     Function to get the data from the application user
     """
-    u_input = input("Please type the patient's: Name, Test:\n")
-    user_input = u_input.split(',')
-    validate_data(user_input)
+    print('Please type: Name,test_keyword')
+    print('Test keywords: FV= first visit, CKU= check-up, ECH= echocardio')
+    print('EKG= electrocardiogram, STT= stress test, HOL= holter\n')
+    print('Example: John Doe,FV')
+    while True:
+        u_input = input("Patient's data:\n")
+        us_input = u_input.split(',')
+        user_input = [x.upper() for x in us_input]
+        print(user_input)
+        if validate_data(user_input):
+            print('ok')
+            break
     return user_input
 
 
@@ -32,12 +41,19 @@ def validate_data(value):
     """
     try:
         data_value = list(value)
-        if data_value != 2:
+        patient_test = ['FV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
+        if len(data_value) != 2:
             raise ValueError(
                 'Should be 2 data value: Name, Test'
             )
+        if data_value[1] not in patient_test:
+            raise ValueError(
+                f'Use test keywords: {patient_test}'
+            )
     except ValueError as e:
         print(f'Invalid data: {e}')
+        return False
+    return True
 
 
 # Own code
@@ -65,6 +81,8 @@ def close_worksheet():
     To close worksheet and prepare it for calculation
     """
     last_worksheet = get_last_worksheet()
+    print('You are about to close and calculate current worksheet...')
+    time.sleep(2)
     close_input = input('Close worksheet? Y or N:\n').upper()
     if close_input == 'Y':
         last_worksheet.append_row(['CLOSED'])
@@ -92,6 +110,44 @@ def close_worksheet():
         close_worksheet()
 
 
+def update_file():
+    """
+    Function that leads user according to choices:
+    - to update file
+    - to calculate data and close the worksheet to create a new one
+    - to save and exit the application
+    """
+    print('A -update file| B -close and calc worksheet| C -exit app')
+    update_input = input('Choose an option: \n').upper()
+    if update_input == 'A':
+        add_new_data()
+    elif update_input == 'B':
+        close_worksheet()
+    elif update_input == 'C':
+        print('Saving your work...')
+        time.sleep(2)
+        print('Exiting app...')
+        time.sleep(1)
+        print('Bye!')
+    else:
+        print('Only A, B, or C is allowed')
+        update_file()
+
+
+def add_new_data():
+    """
+    Function to get data and update file
+    """
+    print('Please choose the following options:')
+    name = input('A -add new data| B -go back\n').upper()
+    if name == 'A':
+        data = get_data()
+        patient_data = list(data)
+        update_last_worksheet(patient_data)
+    if name == 'B':
+        print(f'Opps your name is {name}')
+
+
 def check_last_worksheet():
     """
     Check if last worksheet is closed and calculated
@@ -111,19 +167,20 @@ def check_last_worksheet():
         })
         print('New worksheet is created!\n')
     else:
-        print('Can update')
+        print('Found the last file... \n')
 
 
 def main():
     """
     Main function
     """
-    patient_data = get_data()
-    update_last_worksheet(patient_data)
+    check_last_worksheet()
+    update_file()
 
 
 print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
-# main()
-close_worksheet()
+main()
+# add_new_data()
+# get_data()
