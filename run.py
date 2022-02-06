@@ -191,7 +191,8 @@ def check_last_worksheet():
 
 
 # DONE-change close function to tally function, put reminder once tallied
-# file wont be accessible for update
+# DONE-file wont be accessible for update
+# deploy to HEROKU
 # need function to calculate tests
 # another function to calculate total tests revenues
 # print latest data
