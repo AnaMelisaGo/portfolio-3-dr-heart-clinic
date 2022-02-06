@@ -24,21 +24,17 @@
 ***
  
 ## What does it do and what does it need to fulfill?
-lorem
+The application is to help the "Dr. Heart Clinic" to control and get data of patient's tests and visualize monthly revenue according to all the patients tests.
  
 ### Functionality of Project
-This application contains ....
+This application contains function to gather data of each patient, save data into a google spreasheet, calculate total tests and their amount value to update the clinic's monthly revenue.
  
 [Back to top](#table-of-contents)
  
 ## Chart
  
-The wireframes were created for each individual page on three different screen sizes. They live below.
- 
-<details>
-<summary>Chart</summary>
- 
-</details>
+The flow chart
+
  
 [Back to Top](#table-of-contents)
  
