@@ -44,7 +44,7 @@ def validate_data(value):
         patient_test = ['FV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
         if len(data_value) != 2:
             raise ValueError(
-                'Should be 2 data value: Name, Test'
+                'Should be 2 data value separated by comma: Name,TEST'
             )
         if data_value[1] not in patient_test:
             raise ValueError(
@@ -77,15 +77,18 @@ def update_last_worksheet(data):
 
 
 # Based on Derek Shidler Tutorial
-def close_worksheet():
+def tally_worksheet():
     """
     To close worksheet and prepare it for calculation
     """
     last_worksheet = get_last_worksheet()
-    print('You are about to close and calculate current worksheet...')
+    print('You are about to tally and calculate current worksheet...')
+    time.sleep(1)
+    print("Remember once the worksheet is calculated, it won't be")
+    print('accessible for new updates, and a new worksheet will be created.')
     time.sleep(2)
-    close_input = input('Close worksheet? Y or N:\n').upper()
-    if close_input == 'Y':
+    tally_input = input('Tally worksheet? Y or N:\n').upper()
+    if tally_input == 'Y':
         last_worksheet.append_row(['CLOSED'])
         # from pretty printed Tutorials
         close_cell = last_worksheet.find('CLOSED').row
@@ -102,14 +105,14 @@ def close_worksheet():
         print('Worksheet closed')
         # From Derek Shidler Tutorial
         time.sleep(1)
-    elif close_input == 'N':
+    elif tally_input == 'N':
         print('You still can update')
         time.sleep(1)
         update_file()
     else:
         print('Invalid choice. Type Y or N only\n')
         time.sleep(1)
-        close_worksheet()
+        tally_worksheet()
 
 
 def update_file():
@@ -124,7 +127,7 @@ def update_file():
     if update == 'A':
         add_new_data()
     elif update == 'B':
-        close_worksheet()
+        tally_worksheet()
     elif update == 'C':
         print('Saving your work... please wait!')
         time.sleep(2)
@@ -185,6 +188,14 @@ def check_last_worksheet():
         create_new_worksheet()
     else:
         print('Found the last file... \n')
+
+
+# DONE-change close function to tally function, put reminder once tallied
+# file wont be accessible for update
+# need function to calculate tests
+# another function to calculate total tests revenues
+# print latest data
+# when all finished, add new function to choose whether add new wksheet or exit
 
 
 def main():
