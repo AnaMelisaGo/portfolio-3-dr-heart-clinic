@@ -31,7 +31,7 @@ def validate_data(value):
         data_value = list(value)
         if data_value != 2:
             raise ValueError(
-                'Should be 2'
+                'Should be 2 data value: Name, Test'
             )
     except ValueError as e:
         print(f'Invalid data: {e}')
@@ -62,6 +62,8 @@ def close_worksheet():
     close_input = input('Close worksheet? Y or N:\n').upper()
     if close_input == 'Y':
         last_worksheet.append_row(['CLOSED'])
+        # close_cell = last_worksheet.find('CLOSED')
+        # close_cell.format()
         print('Worksheet closed')
     elif close_input == 'N':
         print('You still can update')
@@ -76,7 +78,20 @@ def check_last_worksheet():
     """
     last_worksheet = get_last_worksheet()
     check_wksheet = last_worksheet.find('CLOSED')
-    print(check_wksheet)
+    if check_wksheet:
+        print('You have to create a new worksheet')
+        title = input('Type file name for the new worksheet:\n')
+        print('Creating new worksheet, please wait ...\n')
+        new_worksheet = CLINIC_SHEET.add_worksheet(title, rows=100, cols=3)
+        new_worksheet.update('A1:B1', [['NAME', 'TEST']])
+        new_worksheet.format('A1:B1', {
+            'textFormat': {
+                'bold': True
+            }
+        })
+        print('New worksheet is created!\n')
+    else:
+        print('Can update')
 
 
 def main():
@@ -91,4 +106,4 @@ print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
 # main()
-close_worksheet()
+check_last_worksheet()
