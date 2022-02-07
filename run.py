@@ -102,7 +102,7 @@ def tally_worksheet():
                 'blue': 0.0
             }
         })
-        print('Worksheet closed')
+        print('Preparing worksheet...')
         # From Derek Shidler Tutorial
         time.sleep(1)
     elif tally_input == 'N':
@@ -203,10 +203,13 @@ def get_test_column():
     patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
     total_test = [list_tests.count(test) for test in patient_test]
     print(total_test)
+    # geek for geeks
+    result = dict(zip(patient_test, total_test))
+    print(f'The result is:\n{result}')
     return total_test
 
 
-def sum_up(tests):
+def row_data(tests):
     """
     Sum all test and convert all data into a single list
     """
@@ -221,11 +224,23 @@ def sum_up(tests):
 
 def update_total_tests(list_value):
     """
-    Get total test and add them to the worksheet
+    Get the stadistic worksheet and add the values to the worksheet
     """
     total_test = CLINIC_SHEET.worksheet('total-tests')
     total_test.append_row(list_value)
-    print('updated total tests worksheet')
+    print('Updated total tests worksheet')
+
+
+def get_revenue(data):
+    """
+    To get revenue
+    """
+    price = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:]
+    tests = data[1:]
+    res_list = []
+    for num1, num2 in zip(price, tests):
+        res_list.append(int(num1) * int(num2))
+    print(res_list)
 
 
 def main():
@@ -241,14 +256,14 @@ print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
 # main()
 test_list = get_test_column()
-data_list = sum_up(test_list)
-update_total_tests(data_list)
-
+data_list = row_data(test_list)
+# update_total_tests(data_list)
+get_revenue(data_list)
 
 # DONE-change close function to tally function, put reminder once tallied
 # DONE-file wont be accessible for update
 # DONE-deploy to HEROKU
-# need function to calculate tests
+# DONE-need function to calculate tests
 # another function to calculate total tests revenues
 # print latest data
 # when all finished, add new function to choose whether add new wksheet or exit
