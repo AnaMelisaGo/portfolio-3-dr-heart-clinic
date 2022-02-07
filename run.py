@@ -41,7 +41,7 @@ def validate_data(value):
     """
     try:
         data_value = list(value)
-        patient_test = ['FV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
+        patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
         if len(data_value) != 2:
             raise ValueError(
                 'Should be 2 data value separated by comma: Name,TEST'
@@ -190,13 +190,42 @@ def check_last_worksheet():
         print('Found the last file... \n')
 
 
-# DONE-change close function to tally function, put reminder once tallied
-# DONE-file wont be accessible for update
-# deploy to HEROKU
-# need function to calculate tests
-# another function to calculate total tests revenues
-# print latest data
-# when all finished, add new function to choose whether add new wksheet or exit
+def get_test_column():
+    """
+    Find all tests from the test column and count total data
+    """
+    last_ws = get_last_worksheet()
+    find_test = last_ws.find('TEST')
+    row_test = find_test.row
+    col_test = find_test.col
+    column = last_ws.col_values(col_test)
+    list_tests = column[row_test:]
+    patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
+    total_test = [list_tests.count(test) for test in patient_test]
+    print(total_test)
+    return total_test
+
+
+def sum_up(tests):
+    """
+    dadfaf
+    """
+    last_ws = get_last_worksheet()
+    file_name = [last_ws.title]
+    total = [sum(tests)]
+    row = [file_name, tests, total]
+    # This pointer tutorial - convert list of list into flat list
+    add_row = [item for elem in row for item in elem]
+    return add_row
+
+
+def update_total_tests(list_value):
+    """
+    Get total of test
+    """
+    total_test = CLINIC_SHEET.worksheet('total-tests')
+    total_test.append_row(list_value)
+    print('updated total tests worksheet')
 
 
 def main():
@@ -210,6 +239,16 @@ def main():
 print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
-main()
-# add_new_data()
-# get_data()
+# main()
+test_list = get_test_column()
+data_list = sum_up(test_list)
+update_total_tests(data_list)
+
+
+# DONE-change close function to tally function, put reminder once tallied
+# DONE-file wont be accessible for update
+# DONE-deploy to HEROKU
+# need function to calculate tests
+# another function to calculate total tests revenues
+# print latest data
+# when all finished, add new function to choose whether add new wksheet or exit
