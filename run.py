@@ -208,7 +208,7 @@ def get_test_column():
 
 def sum_up(tests):
     """
-    dadfaf
+    Sum all test and convert all data into a single list
     """
     last_ws = get_last_worksheet()
     file_name = [last_ws.title]
@@ -221,7 +221,7 @@ def sum_up(tests):
 
 def update_total_tests(list_value):
     """
-    Get total of test
+    Get total test and add them to the worksheet
     """
     total_test = CLINIC_SHEET.worksheet('total-tests')
     total_test.append_row(list_value)
