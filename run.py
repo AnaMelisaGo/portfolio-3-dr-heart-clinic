@@ -22,14 +22,13 @@ def get_data():
     print('\nPlease type: Name,test_keyword')
     print('Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio')
     print('EKG= electrocardiogram, STT= stress test, HOL= holter')
-    print('Example: John Doe,FV\n')
+    print('Example: John Doe,FRV\n')
     while True:
         u_input = input("Patient's data:\n")
         us_input = u_input.split(',')
         user_input = [x.upper() for x in us_input]
         if validate_data(user_input):
             print('Valid data!')
-            time.sleep(1)
             break
     return user_input
 
@@ -44,11 +43,11 @@ def validate_data(value):
         patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
         if len(data_value) != 2:
             raise ValueError(
-                'Should be 2 data value separated by comma: Name,TEST'
+                'Should be 2 data value separated by comma, ex: Name,TEST'
             )
         if data_value[1] not in patient_test:
             raise ValueError(
-                f'Use test keywords: {patient_test}'
+                f'Use keywords: {patient_test}, and comma with no spaces'
             )
     except ValueError as e:
         print(f'Invalid data: {e}')
@@ -76,6 +75,17 @@ def update_last_worksheet(data):
     time.sleep(1)
 
 
+def exit_app():
+    """
+    A function that prompts a message exiting app
+    """
+    print('Saving your work... please wait!')
+    time.sleep(2)
+    print('Exiting app...')
+    time.sleep(1)
+    print('Bye!')
+
+
 def update_file():
     """
     Function that leads user according to choices:
@@ -90,13 +100,10 @@ def update_file():
     elif update == 'B':
         tally_worksheet()
     elif update == 'C':
-        print('Saving your work... please wait!')
-        time.sleep(2)
-        print('Exiting app...')
-        time.sleep(1)
-        print('Bye!')
+        exit_app()
     else:
         print('Choose A, B, or C only')
+        time.sleep(2)
         update_file()
 
 
@@ -145,10 +152,14 @@ def check_last_worksheet():
     last_worksheet = get_last_worksheet()
     check_wksheet = last_worksheet.find('CLOSED')
     if check_wksheet:
-        print('You have to create a new worksheet')
+        print('\nYou have to create a new worksheet')
+        print('Recommendation: use current "month-year" in naming file.\n')
         create_new_worksheet()
     else:
-        print('Found the last file... \n')
+        print('Found the last file...')
+        title = file_name()
+        print(f'file name: {title} \n')
+        time.sleep(1)
 
 
 def get_test_column():
@@ -243,6 +254,22 @@ def calculate_total_revenue():
     add_data_revenue(w_name, rev_data)
 
 
+def continue_working():
+    """
+    Function to continue working or exit app
+    """
+    print('\nIf you want to continue, press A. If exit app, press B')
+    work_choice = input('Please select option:\n').upper()
+    if work_choice == 'A':
+        main()
+    elif work_choice == 'B':
+        exit_app()
+    else:
+        print('Only A or B is allowed. Please try again!')
+        time.sleep(1)
+        continue_working()
+
+
 # Based on Derek Shidler Tutorial
 def tally_worksheet():
     """
@@ -273,6 +300,7 @@ def tally_worksheet():
         # From Derek Shidler Tutorial
         time.sleep(1)
         calculate_total_revenue()
+        continue_working()
     elif tally_input == 'N':
         print('You still can update')
         time.sleep(1)
@@ -304,4 +332,6 @@ main()
 # DONE - another function to calculate total tests revenues
 # DONE - add revenue to worksheet
 # DONE - print latest data
-# when all finished, add new function to choose whether add new wksheet or exit
+# DONE - finished? add new function to choose whether add new ws or exit
+# add try exception when creating new files with names that already exists
+# exception APIError
