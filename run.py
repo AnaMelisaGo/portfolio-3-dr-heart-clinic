@@ -20,7 +20,7 @@ def get_data():
     Function to get the data from the application user
     """
     print('\nPlease type: Name,test_keyword')
-    print('Test keywords: FV= first visit, CKU= check-up, ECH= echocardio')
+    print('Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio')
     print('EKG= electrocardiogram, STT= stress test, HOL= holter')
     print('Example: John Doe,FV\n')
     while True:
@@ -76,45 +76,6 @@ def update_last_worksheet(data):
     time.sleep(1)
 
 
-# Based on Derek Shidler Tutorial
-def tally_worksheet():
-    """
-    To close worksheet and prepare it for calculation
-    """
-    last_worksheet = get_last_worksheet()
-    print('You are about to tally and calculate current worksheet...')
-    time.sleep(1)
-    print("Remember once the worksheet is calculated, it won't be")
-    print('accessible for new updates, and a new worksheet will be created.')
-    time.sleep(2)
-    tally_input = input('Tally worksheet? Y or N:\n').upper()
-    if tally_input == 'Y':
-        last_worksheet.append_row(['CLOSED'])
-        # from pretty printed Tutorials
-        close_cell = last_worksheet.find('CLOSED').row
-        last_worksheet.format(f'A{close_cell}', {
-            'textFormat': {
-                'bold': True
-            },
-            'backgroundColor': {
-                'red': 1,
-                'green': 0.0,
-                'blue': 0.0
-            }
-        })
-        print('Preparing worksheet...')
-        # From Derek Shidler Tutorial
-        time.sleep(1)
-    elif tally_input == 'N':
-        print('You still can update')
-        time.sleep(1)
-        update_file()
-    else:
-        print('Invalid choice. Type Y or N only\n')
-        time.sleep(1)
-        tally_worksheet()
-
-
 def update_file():
     """
     Function that leads user according to choices:
@@ -123,7 +84,7 @@ def update_file():
     - to save and exit the application
     """
     print('Choose an option:')
-    update = input('A-update file|B-tally & calc wsheet|C-exit app\n').upper()
+    update = input('A-update file|B-tally & calc|C-exit app\n').upper()
     if update == 'A':
         add_new_data()
     elif update == 'B':
@@ -151,7 +112,7 @@ def add_new_data():
             patient_data = list(data)
             update_last_worksheet(patient_data)
         elif name == 'B':
-            print('Back to update file or calculate worksheet\n')
+            print('You are back to update/calculate section\n')
             time.sleep(2)
             update_file()
             break
@@ -202,21 +163,28 @@ def get_test_column():
     list_tests = column[row_test:]
     patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
     total_test = [list_tests.count(test) for test in patient_test]
-    print(total_test)
     # geek for geeks
     result = dict(zip(patient_test, total_test))
-    print(f'The result is:\n{result}')
+    print(f'\nThe result is:\n{result}\n')
+    time.sleep(2)
     return total_test
 
 
-def row_data(tests):
+def file_name():
+    """
+    Return file name of the last worksheet
+    """
+    last_ws = get_last_worksheet()
+    title = last_ws.title
+    return title
+
+
+def row_data(file, tests):
     """
     Sum all test and convert all data into a single list
     """
-    last_ws = get_last_worksheet()
-    file_name = [last_ws.title]
     total = [sum(tests)]
-    row = [file_name, tests, total]
+    row = [[file], tests, total]
     # This pointer tutorial - convert list of list into flat list
     add_row = [item for elem in row for item in elem]
     return add_row
@@ -228,19 +196,91 @@ def update_total_tests(list_value):
     """
     total_test = CLINIC_SHEET.worksheet('total-tests')
     total_test.append_row(list_value)
-    print('Updated total tests worksheet')
+    print('Updated total tests worksheet!\n')
+    time.sleep(1)
 
 
 def get_revenue(data):
     """
-    To get revenue
+    To calculate revenue of each patient test and total
     """
+    print('Calculating revenue...')
+    time.sleep(1)
     price = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:]
     tests = data[1:]
-    res_list = []
+    revenue_list = []
     for num1, num2 in zip(price, tests):
-        res_list.append(int(num1) * int(num2))
-    print(res_list)
+        revenue_list.append(int(num1) * int(num2))
+    return revenue_list
+
+
+def add_data_revenue(file, rev):
+    """
+    To add the calculated revenue to the Dr Heart worksheet
+    """
+    rev_worksheet = CLINIC_SHEET.worksheet('dr-heart-revenue')
+    rev_row = [[file], rev]
+    add_rev_row = [cell for data in rev_row for cell in data]
+    rev_worksheet.append_row(add_rev_row)
+    print('Revenue worksheet updated!')
+    time.sleep(1)
+    keys = rev_worksheet.row_values(3)[1:]
+    prices = [str(i)+'€' for i in rev]
+    rev_result = dict(zip(keys, prices))
+    print(f'\nTotal revenue in {file}:')
+    print(rev_result)
+
+
+def calculate_total_revenue():
+    """
+    To calculate and update the dr heart worksheets
+    """
+    test_list = get_test_column()
+    w_name = file_name()
+    data_list = row_data(w_name, test_list)
+    update_total_tests(data_list)
+    rev_data = get_revenue(data_list)
+    add_data_revenue(w_name, rev_data)
+
+
+# Based on Derek Shidler Tutorial
+def tally_worksheet():
+    """
+    To close worksheet and prepare it for calculation
+    """
+    last_worksheet = get_last_worksheet()
+    print('You are about to tally and calculate current worksheet...')
+    time.sleep(1)
+    print("Remember once the worksheet is calculated, it won't be")
+    print('accessible, and a new worksheet SHOULD be created.')
+    time.sleep(2)
+    tally_input = input('Tally worksheet? Y or N:\n').upper()
+    if tally_input == 'Y':
+        last_worksheet.append_row(['CLOSED'])
+        # from pretty printed Tutorials
+        close_cell = last_worksheet.find('CLOSED').row
+        last_worksheet.format(f'A{close_cell}', {
+            'textFormat': {
+                'bold': True
+            },
+            'backgroundColor': {
+                'red': 1,
+                'green': 0.0,
+                'blue': 0.0
+            }
+        })
+        print('Preparing worksheet...')
+        # From Derek Shidler Tutorial
+        time.sleep(1)
+        calculate_total_revenue()
+    elif tally_input == 'N':
+        print('You still can update')
+        time.sleep(1)
+        update_file()
+    else:
+        print('Invalid choice. Type Y or N only\n')
+        time.sleep(1)
+        tally_worksheet()
 
 
 def main():
@@ -254,16 +294,14 @@ def main():
 print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
-# main()
-test_list = get_test_column()
-data_list = row_data(test_list)
-# update_total_tests(data_list)
-get_revenue(data_list)
+main()
+
 
 # DONE-change close function to tally function, put reminder once tallied
 # DONE-file wont be accessible for update
 # DONE-deploy to HEROKU
 # DONE-need function to calculate tests
-# another function to calculate total tests revenues
-# print latest data
+# DONE - another function to calculate total tests revenues
+# DONE - add revenue to worksheet
+# DONE - print latest data
 # when all finished, add new function to choose whether add new wksheet or exit
