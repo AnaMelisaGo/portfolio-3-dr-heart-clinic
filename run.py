@@ -136,7 +136,11 @@ def create_new_worksheet():
     """
     To create a new worksheet
     """
-    title = input('Type file name for the new worksheet:\n')
+    while True:
+        title = input('Type file name for the new worksheet:\n')
+        if validate_new_worksheet(title):
+            print('Valid name!\n')
+            break
     print('Creating new worksheet, please wait ...\n')
     time.sleep(2)
     new_worksheet = CLINIC_SHEET.add_worksheet(title, rows=100, cols=3)
@@ -147,6 +151,25 @@ def create_new_worksheet():
         }
     })
     print('New worksheet is created!\n')
+
+
+def validate_new_worksheet(name):
+    """
+    To validate new workwheet
+    """
+    try:
+        all_worksheets = CLINIC_SHEET.worksheets()
+        list_ws = []
+        for index, item in enumerate(all_worksheets):
+            list_ws.append(all_worksheets[index].title)
+        if name in list_ws:
+            raise ValueError(
+                'Oops! Use another title for the worksheet!\n'
+            )
+    except ValueError as e:
+        print(f'Invalid name: {e}')
+        return False
+    return True
 
 
 # Own code
@@ -163,7 +186,7 @@ def check_last_worksheet():
     else:
         print('Found the last file...')
         title = file_name()
-        print(f'file name: {title} \n')
+        print(f'FILE NAME: {title} \n')
         time.sleep(1)
 
 
@@ -248,9 +271,10 @@ def add_data_revenue(file, rev):
     rev_result = dict(zip(keys, prices))
     print(f'\nRevenue Report in {file}:')
     # From stackoverflow
-    print('{:<14} {:2}'.format('TEST', 'REVENUE'))
+    print('{:<12} {:>5}'.format('TEST', 'REVENUE'))
     for k, v in rev_result.items():
-        print('{:<14} {:2}'.format(k, v))
+        print('{:<14} {:>5}'.format(k, v))
+    time.sleep(2)
 
 
 def calculate_total_revenue():
@@ -269,7 +293,7 @@ def continue_working():
     """
     Function to continue working or exit app
     """
-    print('\nIf you want to continue, press A. If exit app, press B')
+    print('\nPress A to add new worksheet, B to save and exit app')
     work_choice = input('Please select option:\n').upper()
     if work_choice == 'A':
         main()
@@ -333,11 +357,8 @@ def main():
 print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
-# main()
+main()
 # calculate_total_revenue()
-validate_new_worksheet()
-
-
 # DONE-change close function to tally function, put reminder once tallied
 # DONE-file wont be accessible for update
 # DONE-deploy to HEROKU
@@ -346,5 +367,5 @@ validate_new_worksheet()
 # DONE - add revenue to worksheet
 # DONE - print latest data
 # DONE - finished? add new function to choose whether add new ws or exit
-# add try exception when creating new files with names that already exists
-# exception APIError
+# DONE - add try exception when creating new files with SAME TITLE
+# DONE- exception APIError
