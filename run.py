@@ -40,14 +40,14 @@ def validate_data(value):
     """
     try:
         data_value = list(value)
-        patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
+        test_keyword = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
         if len(data_value) != 2:
             raise ValueError(
                 'Should be 2 data value separated by comma, ex: Name,TEST'
             )
-        if data_value[1] not in patient_test:
+        if data_value[1] not in test_keyword:
             raise ValueError(
-                f'Use keywords: {patient_test}, and comma with no spaces'
+                f'Use keywords: {test_keyword}, and comma with no spaces'
             )
     except ValueError as e:
         print(f'Invalid data: {e}')
@@ -75,6 +75,7 @@ def update_last_worksheet(data):
     time.sleep(1)
 
 
+# Own code
 def exit_app():
     """
     A function that prompts a message exiting app
@@ -86,6 +87,7 @@ def exit_app():
     print('Bye!')
 
 
+# Based on Derek Shidler Tutorial for Adventure game
 def update_file():
     """
     Function that leads user according to choices:
@@ -107,6 +109,7 @@ def update_file():
         update_file()
 
 
+# Based on Derek Shidler Tutorial for Adventure game
 def add_new_data():
     """
     Function to get data and update file
@@ -128,6 +131,7 @@ def add_new_data():
             time.sleep(1)
 
 
+# Own code with the help of GSPREAD DOC
 def create_new_worksheet():
     """
     To create a new worksheet
@@ -145,6 +149,7 @@ def create_new_worksheet():
     print('New worksheet is created!\n')
 
 
+# Own code
 def check_last_worksheet():
     """
     Check if last worksheet is closed and calculated
@@ -172,10 +177,10 @@ def get_test_column():
     col_test = find_test.col
     column = last_ws.col_values(col_test)
     list_tests = column[row_test:]
-    patient_test = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
-    total_test = [list_tests.count(test) for test in patient_test]
+    test_keyword = ['FRV', 'CKU', 'ECH', 'EKG', 'STT', 'HOL']
+    total_test = [list_tests.count(test) for test in test_keyword]
     # geek for geeks
-    result = dict(zip(patient_test, total_test))
+    result = dict(zip(test_keyword, total_test))
     print(f'\nThe result is:\n{result}\n')
     time.sleep(2)
     return total_test
@@ -217,11 +222,14 @@ def get_revenue(data):
     """
     print('Calculating revenue...')
     time.sleep(1)
-    price = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:]
-    tests = data[1:]
-    revenue_list = []
+    price = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:7]
+    tests = data[1:7]
+    test_rev = []
     for num1, num2 in zip(price, tests):
-        revenue_list.append(int(num1) * int(num2))
+        test_rev.append(int(num1) * int(num2))
+    total = [sum(test_rev)]
+    rev = [test_rev, total]
+    revenue_list = [x for y in rev for x in y]
     return revenue_list
 
 
@@ -238,8 +246,11 @@ def add_data_revenue(file, rev):
     keys = rev_worksheet.row_values(3)[1:]
     prices = [str(i)+'€' for i in rev]
     rev_result = dict(zip(keys, prices))
-    print(f'\nTotal revenue in {file}:')
-    print(rev_result)
+    print(f'\nRevenue Report in {file}:')
+    # From stackoverflow
+    print('{:<14} {:2}'.format('TEST', 'REVENUE'))
+    for k, v in rev_result.items():
+        print('{:<14} {:2}'.format(k, v))
 
 
 def calculate_total_revenue():
@@ -270,7 +281,7 @@ def continue_working():
         continue_working()
 
 
-# Based on Derek Shidler Tutorial
+# Based on Derek Shidler Tutorial for Adventure game
 def tally_worksheet():
     """
     To close worksheet and prepare it for calculation
@@ -322,7 +333,9 @@ def main():
 print('-'*60)
 print('      Welcome to Dr. Heart Clinic')
 print('-'*60)
-main()
+# main()
+# calculate_total_revenue()
+validate_new_worksheet()
 
 
 # DONE-change close function to tally function, put reminder once tallied
