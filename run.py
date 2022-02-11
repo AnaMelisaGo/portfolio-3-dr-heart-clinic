@@ -132,6 +132,7 @@ def create_new_worksheet():
     time.sleep(1)
 
 
+# Own code
 def show_all_sheet():
     """
     To show all worksheet title
@@ -143,6 +144,7 @@ def show_all_sheet():
     return list_all_wsheet
 
 
+# Based on Love Sandwich
 def validate_new_worksheet(name):
     """
     To validate new workwheet
@@ -160,6 +162,7 @@ def validate_new_worksheet(name):
     return True
 
 
+# Own code mostly
 def get_test_column():
     """
     Find all tests from the test column and count total data
@@ -179,6 +182,7 @@ def get_test_column():
     return total_test
 
 
+# Own code with the help of GSPREAD DOC
 def last_file_name():
     """
     Return file name of the last worksheet
@@ -188,6 +192,7 @@ def last_file_name():
     return title
 
 
+# Own code mostly
 def row_data(file, tests):
     """
     Sum all test and convert all data into a single list
@@ -199,6 +204,7 @@ def row_data(file, tests):
     return add_row
 
 
+# Based on Love Sandwich
 def update_total_tests(list_value):
     """
     Get the stadistic worksheet and add the values to the worksheet
@@ -209,6 +215,7 @@ def update_total_tests(list_value):
     time.sleep(1)
 
 
+# Based on Love Sandwich
 def get_revenue(data):
     """
     To calculate revenue of each patient test and total
@@ -226,6 +233,7 @@ def get_revenue(data):
     return revenue_list
 
 
+# Based on Love Sandwich
 def add_data_revenue(file, rev):
     """
     To add the calculated revenue to the Dr Heart worksheet
@@ -240,13 +248,15 @@ def add_data_revenue(file, rev):
     prices = [str(i)+'€' for i in rev]
     rev_result = dict(zip(keys, prices))
     print(f'\nRevenue Report in {file}:')
-    # Geeks for geeks
+    # Geeks for geeks string alignment
     print(f'{"TEST":<12}{"REVENUE":>5}')
     for key, val in rev_result.items():
+        # Geeks for geeks string alignment
         print(f'{key:<12}{val:>5}')
     time.sleep(2)
 
 
+# Own code
 def calculate_total_revenue():
     """
     To calculate and update the dr heart worksheets
@@ -259,6 +269,7 @@ def calculate_total_revenue():
     add_data_revenue(w_name, rev_data)
 
 
+# Based on Derek Shidler Tutorial for Adventure game
 def continue_working():
     """
     Function to continue working or exit app
@@ -332,6 +343,7 @@ def show_patients_file():
         if p_lists_inp in patients_file:
             show = CLINIC_SHEET.worksheet(p_lists_inp).get_all_values()
             for row in show:
+                # Stackoverflow string formatting
                 print(('{:<20}'*len(row)).format(*row))
             time.sleep(2)
             break
@@ -348,6 +360,7 @@ def show_test_stadistics():
     test_stadistics = CLINIC_SHEET.worksheet('total-tests')
     tests_row = test_stadistics.get_all_values()
     for row in tests_row[2:]:
+        # Stackoverflow string formatting
         print(('{:^15}'*len(row)).format(*row))
 
 
@@ -359,19 +372,23 @@ def show_clinic_revenue():
     clinic_rev_ws = CLINIC_SHEET.worksheet('dr-heart-revenue')
     clinic_rev = clinic_rev_ws.get_all_values()
     keys = clinic_rev[2]
+    # Stackoverflow string formatting
     print(('{:^15}'*len(keys)).format(*keys))
     for row_rev in clinic_rev[4:]:
+        cur = '€'
         file_name = row_rev[0]
-        price = [str(i)+'€' for i in row_rev[1:]]
+        price = [str(i)+cur for i in row_rev[1:]]
         print(('{:^15}'*len(row_rev)).format(file_name, *price))
 
 
+# Based on Derek Shidler Tutorial for Adventure game
 def show_file():
     """
     To show data in a worksheet
     """
-    print('\nA-View patients| B-Test Stadistics| C-Revenue file')
-    show_inp = input('Select an option:\n').upper()
+    print('\nSelect an option')
+    print('A-View patients| B-Test Stadistics| C-Revenue file')
+    show_inp = input('\n').upper()
     if show_inp == 'A':
         show_patients_file()
     elif show_inp == 'B':
@@ -384,6 +401,7 @@ def show_file():
     view_file_option()
 
 
+# Based on Derek Shidler Tutorial for Adventure game
 def view_file_option():
     """
     To select show file, back or exit
@@ -460,22 +478,11 @@ def main():
 
 
 print('-'*72)
-# Geeks for geeks
+# Geeks for geeks string alignment
 print(f'|{"":^70}|')
 print(f'|{"Welcome to Dr. Heart Clinic":^70}|')
 print(f'|{"":^70}|')
 print('-'*72)
-# main()
-print(f'{"Test":>12}')
+main()
 
-# DONE-change close function to tally function, put reminder once tallied
-# DONE-file wont be accessible for update
-# DONE-deploy to HEROKU
-# DONE-need function to calculate tests
-# DONE - another function to calculate total tests revenues
-# DONE - add revenue to worksheet
-# DONE - print latest data
-# DONE - finished? add new function to choose whether add new ws or exit
-# DONE - add try exception when creating new files with SAME TITLE
-# DONE- exception APIError
 # make README
