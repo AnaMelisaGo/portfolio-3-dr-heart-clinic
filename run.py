@@ -1,5 +1,4 @@
 import time
-from pprint import pprint
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -241,10 +240,10 @@ def add_data_revenue(file, rev):
     prices = [str(i)+'€' for i in rev]
     rev_result = dict(zip(keys, prices))
     print(f'\nRevenue Report in {file}:')
-    # From stackoverflow
-    print('{:<12} {:>5}'.format('TEST', 'REVENUE'))
+    # Geeks for geeks
+    print(f'{"TEST":<12}{"REVENUE":>5}')
     for key, val in rev_result.items():
-        print('{:<12} {:>5}'.format(key, val))
+        print(f'{key:<12}{val:>5}')
     time.sleep(2)
 
 
@@ -292,7 +291,7 @@ def tally_worksheet():
         last_worksheet.append_row(['CLOSED'])
         # from pretty printed Tutorials
         close_cell = last_worksheet.find('CLOSED').row
-        last_worksheet.format(f'A{close_cell}', {
+        last_worksheet.format(f'{close_cell}', {
             'textFormat': {
                 'bold': True
             },
@@ -317,30 +316,10 @@ def tally_worksheet():
         tally_worksheet()
 
 
-def show_file():
-    """
-    To show all data in a worksheet
-    """
-    print('\nGetting all files...')
-    list_worksheets = show_all_sheet()
-    for worksheet in list_worksheets:
-        print(worksheet)
-        time.sleep(0.5)
-    while True:
-        worksheet_inp = input('\nSelect file:\n')
-        if worksheet_inp in list_worksheets:
-            show = CLINIC_SHEET.worksheet(worksheet_inp).get_all_values()
-            pprint(show)
-            break
-        if worksheet_inp not in list_worksheets:
-            print('\nFile name does not exist!\n')
-            time.sleep(1)
-    view_file_option()
-
-
+# Own code
 def show_patients_file():
     """
-    Show list of patients and test file
+    Show list of patients and tests worksheet
     """
     print('\nGetting files...')
     list_worksheets = show_all_sheet()
@@ -353,12 +332,55 @@ def show_patients_file():
         if p_lists_inp in patients_file:
             show = CLINIC_SHEET.worksheet(p_lists_inp).get_all_values()
             for row in show:
-                print('{:<20}{:5}'.format(*row))
+                print(('{:<20}'*len(row)).format(*row))
             time.sleep(2)
             break
         if p_lists_inp not in patients_file:
             print('\nFile name does not exist!\n')
             time.sleep(1)
+
+
+# Own code
+def show_test_stadistics():
+    """
+    To show tests stadistics
+    """
+    test_stadistics = CLINIC_SHEET.worksheet('total-tests')
+    tests_row = test_stadistics.get_all_values()
+    for row in tests_row[2:]:
+        print(('{:^15}'*len(row)).format(*row))
+
+
+# Own code
+def show_clinic_revenue():
+    """
+    To show the clinic revenue
+    """
+    clinic_rev_ws = CLINIC_SHEET.worksheet('dr-heart-revenue')
+    clinic_rev = clinic_rev_ws.get_all_values()
+    keys = clinic_rev[2]
+    print(('{:^15}'*len(keys)).format(*keys))
+    for row_rev in clinic_rev[4:]:
+        file_name = row_rev[0]
+        price = [str(i)+'€' for i in row_rev[1:]]
+        print(('{:^15}'*len(row_rev)).format(file_name, *price))
+
+
+def show_file():
+    """
+    To show data in a worksheet
+    """
+    print('\nA-View patients| B-Test Stadistics| C-Revenue file')
+    show_inp = input('Select an option:\n').upper()
+    if show_inp == 'A':
+        show_patients_file()
+    elif show_inp == 'B':
+        show_test_stadistics()
+    elif show_inp == 'C':
+        show_clinic_revenue()
+    else:
+        print('Invalid option. Please type A, B, or C only')
+        show_file()
     view_file_option()
 
 
@@ -438,12 +460,14 @@ def main():
 
 
 print('-'*72)
-print('|{:^70}|'.format(''))
-print('|{:^70}|'.format('Welcome to Dr. Heart Clinic'))
-print('|{:^70}|'.format(''))
+# Geeks for geeks
+print(f'|{"":^70}|')
+print(f'|{"Welcome to Dr. Heart Clinic":^70}|')
+print(f'|{"":^70}|')
 print('-'*72)
 # main()
-show_patients_file()
+print(f'{"Test":>12}')
+
 # DONE-change close function to tally function, put reminder once tallied
 # DONE-file wont be accessible for update
 # DONE-deploy to HEROKU
