@@ -244,7 +244,7 @@ def add_data_revenue(file, rev):
     # From stackoverflow
     print('{:<12} {:>5}'.format('TEST', 'REVENUE'))
     for key, val in rev_result.items():
-        print('{:<14} {:>5}'.format(key, val))
+        print('{:<12} {:>5}'.format(key, val))
     time.sleep(2)
 
 
@@ -327,13 +327,37 @@ def show_file():
         print(worksheet)
         time.sleep(0.5)
     while True:
-        worksheet_inp = input('\nView file name:\n')
+        worksheet_inp = input('\nSelect file:\n')
         if worksheet_inp in list_worksheets:
             show = CLINIC_SHEET.worksheet(worksheet_inp).get_all_values()
             pprint(show)
             break
         if worksheet_inp not in list_worksheets:
-            print('\nFile name does nont exits!\n')
+            print('\nFile name does not exist!\n')
+            time.sleep(1)
+    view_file_option()
+
+
+def show_patients_file():
+    """
+    Show list of patients and test file
+    """
+    print('\nGetting files...')
+    list_worksheets = show_all_sheet()
+    patients_file = list_worksheets[2:]
+    for p_lists in patients_file:
+        print(p_lists)
+        time.sleep(0.5)
+    while True:
+        p_lists_inp = input('\nSelect file:\n')
+        if p_lists_inp in patients_file:
+            show = CLINIC_SHEET.worksheet(p_lists_inp).get_all_values()
+            for row in show:
+                print('{:<20}{:5}'.format(*row))
+            time.sleep(2)
+            break
+        if p_lists_inp not in patients_file:
+            print('\nFile name does not exist!\n')
             time.sleep(1)
     view_file_option()
 
@@ -343,7 +367,7 @@ def view_file_option():
     To select show file, back or exit
     """
     print('\nPlease select an option')
-    view_inp = input('A-View file|B-Go back|C-Exit app\n').upper()
+    view_inp = input('A-View files|B-Go back|C-Exit app\n').upper()
     if view_inp == 'A':
         show_file()
         time.sleep(1)
@@ -418,8 +442,8 @@ print('|{:^70}|'.format(''))
 print('|{:^70}|'.format('Welcome to Dr. Heart Clinic'))
 print('|{:^70}|'.format(''))
 print('-'*72)
-main()
-
+# main()
+show_patients_file()
 # DONE-change close function to tally function, put reminder once tallied
 # DONE-file wont be accessible for update
 # DONE-deploy to HEROKU
