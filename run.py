@@ -281,8 +281,8 @@ def tally_worksheet():
     print('You are about to tally and calculate current worksheet...')
     time.sleep(1)
     reminder = """
-    Remember once the worksheet is calculated, it won't be accessible,
-    and a new worksheet SHOULD be created.
+    Remember this WON'T BE accessible for new data update.
+    Once tallied, a new worksheet SHOULD be created.
     """
     print(reminder)
     time.sleep(3)
@@ -328,10 +328,6 @@ def show_test_stats():
     """
     test_stadistics = CLINIC_SHEET.worksheet('total-tests')
     tests_row = test_stadistics.get_all_values()
-    # values = tests_row[2:]
-    # ind = range(len(values))
-    # for ind in zip(*values):
-    #    print(('{:<}'*len(ind)).format(*ind))
     print(f'{"TOTAL TESTS STADISTICS":^77}')
     for row in tests_row[2:]:
         # Stackoverflow string formatting
@@ -441,8 +437,6 @@ def main():
     clinic_work()
 
 
-# Geeks for geeks string alignment
-
 if __name__ == "__main__":
     print('-'*72)
     # Geeks for geeks string alignment
@@ -451,5 +445,3 @@ if __name__ == "__main__":
     print(f'|{"":^70}|')
     print('-'*72)
     main()
-
-# make README
