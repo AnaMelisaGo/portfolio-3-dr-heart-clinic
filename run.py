@@ -337,7 +337,7 @@ def show_patients_file():
     patients_file = list_worksheets[2:]
     for p_lists in patients_file:
         print(p_lists)
-        time.sleep(0.5)
+        time.sleep(0.1)
     while True:
         p_lists_inp = input('\nSelect file:\n')
         if p_lists_inp in patients_file:
@@ -345,7 +345,7 @@ def show_patients_file():
             for row in show:
                 # Stackoverflow string formatting
                 print(('{:<20}'*len(row)).format(*row))
-            time.sleep(2)
+                time.sleep(0.1)
             break
         if p_lists_inp not in patients_file:
             print('\nFile name does not exist!\n')
@@ -359,9 +359,15 @@ def show_test_stadistics():
     """
     test_stadistics = CLINIC_SHEET.worksheet('total-tests')
     tests_row = test_stadistics.get_all_values()
+    # values = tests_row[2:]
+    # ind = range(len(values))
+    # for ind in zip(*values):
+    #    print(('{:<}'*len(ind)).format(*ind))
+    print(f'{"TOTAL TESTS STADISTICS":^77}')
     for row in tests_row[2:]:
         # Stackoverflow string formatting
-        print(('{:^15}'*len(row)).format(*row))
+        print(('{:^10}'*len(row)).format(*row))
+        time.sleep(0.2)
 
 
 # Own code
@@ -373,12 +379,14 @@ def show_clinic_revenue():
     clinic_rev = clinic_rev_ws.get_all_values()
     keys = clinic_rev[2]
     # Stackoverflow string formatting
-    print(('{:^15}'*len(keys)).format(*keys))
+    print(f'{"TOTAL CLINIC REVENUE":^77}')
+    print(('{:^10}'*len(keys)).format(*keys))
     for row_rev in clinic_rev[4:]:
         cur = '€'
         file_name = row_rev[0]
         price = [str(i)+cur for i in row_rev[1:]]
-        print(('{:^15}'*len(row_rev)).format(file_name, *price))
+        print(('{:^10}'*len(row_rev)).format(file_name, *price))
+        time.sleep(0.2)
 
 
 # Based on Derek Shidler Tutorial for Adventure game
@@ -391,10 +399,13 @@ def show_file():
     show_inp = input('\n').upper()
     if show_inp == 'A':
         show_patients_file()
+        time.sleep(1)
     elif show_inp == 'B':
         show_test_stadistics()
+        time.sleep(1)
     elif show_inp == 'C':
         show_clinic_revenue()
+        time.sleep(1)
     else:
         print('Invalid option. Please type A, B, or C only')
         show_file()
@@ -486,3 +497,4 @@ print('-'*72)
 main()
 
 # make README
+# show list vertically
