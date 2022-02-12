@@ -12,6 +12,16 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 CLINIC_SHEET = GSPREAD_CLIENT.open('dr-heart-clinic')
+CLOSED_STYLE = {
+        'textFormat': {
+            'bold': True
+        },
+        'backgroundColor': {
+            'red': 1,
+            'green': 0.0,
+            'blue': 0.0
+        }
+    }
 
 
 # From Love Sandwich
@@ -19,12 +29,17 @@ def get_data():
     """
     Function to get the data from the application user
     """
-    print('\nPlease type: Name,test_keyword')
-    print('Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio')
-    print('EKG= electrocardiogram, STT= stress test, HOL= holter')
-    print('Example: John Doe,FRV\n')
+    recom_msg = """
+    \nPLEASE TYPE: Name,test_keyword (separated with comma, no spaces)
+    Names can have spaces.
+    Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio
+    EKG= electrocardiogram, STT= stress test, HOL= holter
+
+    Example: John Doe,FRV\n
+    """
+    print(recom_msg)
     while True:
-        u_input = input("Patient's data:\n")
+        u_input = input("ENTER PATIENT'S DATA:\n")
         us_input = u_input.split(',')
         user_input = [x.upper() for x in us_input]
         if validate_data(user_input):
@@ -80,7 +95,7 @@ def exit_app():
     """
     A function that prompts a message exiting app
     """
-    print('Saving your work... please wait!')
+    print('\nSaving your work... please wait!')
     time.sleep(2)
     print('Exiting app...')
     time.sleep(1)
@@ -92,24 +107,12 @@ def add_new_data():
     """
     Function to get data and update file
     """
-    print('Please choose the following options:')
-    while True:
-        name = input('A -add new data| B -go back\n').upper()
-        if name == 'A':
-            data = get_data()
-            patient_data = list(data)
-            update_last_worksheet(patient_data)
-        elif name == 'B':
-            print('You are back to update/tally/view section\n')
-            time.sleep(2)
-            update_file()
-            break
-        else:
-            print('Choose A or B only.')
-            time.sleep(1)
+    data = get_data()
+    patient_data = list(data)
+    update_last_worksheet(patient_data)
 
 
-# Own code with the help of GSPREAD DOC
+# Based on Love Sandwich with the help of GSPREAD DOC
 def create_new_worksheet():
     """
     To create a new worksheet
@@ -222,11 +225,11 @@ def get_revenue(data):
     """
     print('Calculating revenue...')
     time.sleep(1)
-    price = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:7]
+    prices = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:7]
     tests = data[1:7]
     test_rev = []
-    for num1, num2 in zip(price, tests):
-        test_rev.append(int(num1) * int(num2))
+    for price, test in zip(prices, tests):
+        test_rev.append(int(price) * int(test))
     total = [sum(test_rev)]
     rev = [test_rev, total]
     revenue_list = [x for y in rev for x in y]
@@ -270,23 +273,6 @@ def calculate_total_revenue():
 
 
 # Based on Derek Shidler Tutorial for Adventure game
-def continue_working():
-    """
-    Function to continue working or exit app
-    """
-    print('\nPress A to add new worksheet, B to save and exit app')
-    work_choice = input('Please select option:\n').upper()
-    if work_choice == 'A':
-        main()
-    elif work_choice == 'B':
-        exit_app()
-    else:
-        print('Only A or B is allowed. Please try again!')
-        time.sleep(1)
-        continue_working()
-
-
-# Based on Derek Shidler Tutorial for Adventure game
 def tally_worksheet():
     """
     To close worksheet and prepare it for calculation
@@ -294,37 +280,20 @@ def tally_worksheet():
     last_worksheet = get_last_worksheet()
     print('You are about to tally and calculate current worksheet...')
     time.sleep(1)
-    print("Remember once the worksheet is calculated, it won't be")
-    print('accessible, and a new worksheet SHOULD be created.')
-    time.sleep(2)
-    tally_input = input('Tally worksheet? Y or N:\n').upper()
-    if tally_input == 'Y':
-        last_worksheet.append_row(['CLOSED'])
-        # from pretty printed Tutorials
-        close_cell = last_worksheet.find('CLOSED').row
-        last_worksheet.format(f'{close_cell}', {
-            'textFormat': {
-                'bold': True
-            },
-            'backgroundColor': {
-                'red': 1,
-                'green': 0.0,
-                'blue': 0.0
-            }
-        })
-        print('Preparing worksheet...')
-        # From Derek Shidler Tutorial
-        time.sleep(1)
-        calculate_total_revenue()
-        continue_working()
-    elif tally_input == 'N':
-        print('You can still update file')
-        time.sleep(1)
-        update_file()
-    else:
-        print('Invalid choice. Type Y or N only\n')
-        time.sleep(1)
-        tally_worksheet()
+    reminder = """
+    Remember once the worksheet is calculated, it won't be accessible,
+    and a new worksheet SHOULD be created.
+    """
+    print(reminder)
+    time.sleep(3)
+    last_worksheet.append_row(['CLOSED'])
+    # from pretty printed Tutorials
+    close_cell = last_worksheet.find('CLOSED').row
+    last_worksheet.format(f'{close_cell}', CLOSED_STYLE)
+    print('Preparing worksheet...')
+    # From Derek Shidler Tutorial
+    time.sleep(1)
+    calculate_total_revenue()
 
 
 # Own code
@@ -353,7 +322,7 @@ def show_patients_file():
 
 
 # Own code
-def show_test_stadistics():
+def show_test_stats():
     """
     To show tests stadistics
     """
@@ -390,48 +359,29 @@ def show_clinic_revenue():
 
 
 # Based on Derek Shidler Tutorial for Adventure game
-def show_file():
+def show_files():
     """
     To show data in a worksheet
     """
-    print('\nSelect an option')
-    print('A-View patients| B-Test Stadistics| C-Revenue file')
-    show_inp = input('\n').upper()
-    if show_inp == 'A':
-        show_patients_file()
-        time.sleep(1)
-    elif show_inp == 'B':
-        show_test_stadistics()
-        time.sleep(1)
-    elif show_inp == 'C':
-        show_clinic_revenue()
-        time.sleep(1)
-    else:
-        print('Invalid option. Please type A, B, or C only')
-        show_file()
-    view_file_option()
-
-
-# Based on Derek Shidler Tutorial for Adventure game
-def view_file_option():
-    """
-    To select show file, back or exit
-    """
-    print('\nPlease select an option')
-    view_inp = input('A-View files|B-Go back|C-Exit app\n').upper()
-    if view_inp == 'A':
-        show_file()
-        time.sleep(1)
-    elif view_inp == 'B':
-        print('You are back to update/tally/view section\n')
-        update_file()
-        time.sleep(1)
-    elif view_inp == 'C':
-        exit_app()
-    else:
-        print('Choose only A or B\n')
-        time.sleep(1)
-        view_file_option()
+    while True:
+        print('\nSELECT AN OPTION:')
+        print('A-View patients| B-Test Stadistics| C-Revenue file| D-Back')
+        show_inp = input('\n').upper()
+        if show_inp == 'A':
+            show_patients_file()
+            time.sleep(1)
+        elif show_inp == 'B':
+            show_test_stats()
+            time.sleep(1)
+        elif show_inp == 'C':
+            show_clinic_revenue()
+            time.sleep(1)
+        elif show_inp == 'D':
+            print('You are back to update/tally/view section\n')
+            time.sleep(2)
+            break
+        else:
+            print('Invalid option. Please type A, B, or C only')
 
 
 # Own code
@@ -456,27 +406,30 @@ def check_last_worksheet():
 
 
 # Based on Derek Shidler Tutorial for Adventure game
-def update_file():
+def clinic_work():
     """
     Function that leads user according to choices:
     - to update file
     - to calculate data and close the worksheet to create a new one
+    - to view different worksheets
     - to save and exit the application
     """
-    print('\nChoose an option:')
-    update = input('A-update file|B-tally |C-view |D-exit\n').upper()
-    if update == 'A':
-        add_new_data()
-    elif update == 'B':
-        tally_worksheet()
-    elif update == 'C':
-        view_file_option()
-    elif update == 'D':
-        exit_app()
-    else:
-        print('Choose A, B, or C only')
-        time.sleep(2)
-        update_file()
+    while True:
+        print('\nCHOOSE AN OPTION:')
+        work = input('A-Update file |B-Tally |C-View All |D-Exit\n').upper()
+        if work == 'A':
+            add_new_data()
+        elif work == 'B':
+            tally_worksheet()
+            check_last_worksheet()
+        elif work == 'C':
+            show_files()
+        elif work == 'D':
+            exit_app()
+            break
+        else:
+            print('Choose A, B, or C only')
+            time.sleep(2)
 
 
 # From Love Sandwich
@@ -485,16 +438,18 @@ def main():
     Main function
     """
     check_last_worksheet()
-    update_file()
+    clinic_work()
 
 
-print('-'*72)
 # Geeks for geeks string alignment
-print(f'|{"":^70}|')
-print(f'|{"Welcome to Dr. Heart Clinic":^70}|')
-print(f'|{"":^70}|')
-print('-'*72)
-main()
+
+if __name__ == "__main__":
+    print('-'*72)
+    # Geeks for geeks string alignment
+    print(f'|{"":^70}|')
+    print(f'|{"Welcome to Dr. Heart Clinic":^70}|')
+    print(f'|{"":^70}|')
+    print('-'*72)
+    main()
 
 # make README
-# show list vertically
