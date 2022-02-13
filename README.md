@@ -28,7 +28,7 @@
 ***
  
 ## What does it do and what does it need to fulfill?
-The application is to help the "Dr. Heart Clinic" to control data of each patient's tests and visualize all monthly tests stadistics and revenue.
+The application is to help the "Dr. Heart Clinic" to control data of each patient's tests and visualize all monthly tests statistics and tests revenue data.
  
 ### Functionality of Project
 This application contains functions:
@@ -36,6 +36,7 @@ This application contains functions:
  - to save data into a google spreasheet
  - to calculate total tests
  - to calculate amount value of each tests and update the clinic's monthly revenue.
+ - view worksheets data
  
 [Back to top](#table-of-contents)
  
@@ -51,12 +52,22 @@ The flow chart
  
 * Tech stack used:
 
-   - Python 3
+   - [Python](https://www.python.org/)
+
+* Editor and Version Control:
+
+   - Git for version control
+
+   - [Gitpod](https://www.gitpod.io/) is used as the editor
+
+   - [Github](https://github.com/) is used to store the project
+
+   - [Heroku](https://www.heroku.com) is used to deploy the project
  
 #### Tools Used:
  
-* Google Drive
-* Google Sheets
+* Google Drive is used to store the spreadsheet of the project
+* Google Sheets to store all patients data and all the calculated data
 
 [Back to Top](#table-of-contents)
 
