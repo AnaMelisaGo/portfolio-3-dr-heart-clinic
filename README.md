@@ -28,10 +28,14 @@
 ***
  
 ## What does it do and what does it need to fulfill?
-The application is to help the "Dr. Heart Clinic" to control and save data of each patient's tests and visualize all monthly tests stadistics and each tests revenue.
+The application is to help the "Dr. Heart Clinic" to control data of each patient's tests and visualize all monthly tests stadistics and revenue.
  
 ### Functionality of Project
-This application contains function to gather data of each patient, save data into a google spreasheet, calculate total tests and their amount value and update the clinic's monthly revenue.
+This application contains functions:
+ - to gather data of each patient
+ - to save data into a google spreasheet
+ - to calculate total tests
+ - to calculate amount value of each tests and update the clinic's monthly revenue.
  
 [Back to top](#table-of-contents)
  
@@ -45,7 +49,7 @@ The flow chart
  
 #### Languages, Frameworks, Editors & Version Control:
  
-* Techstack
+* Tech stack used:
 
    - Python 3
  
@@ -59,7 +63,21 @@ The flow chart
 ## Features
  
 The project boasts several key features:
-* Create: ...
+
+* WELCOME MESSAGE AND CHECKING FILE TO UPDATE
+
+![Welcome message](static/images/screenshot-start.png)
+
+Welcomes the user when the app is opened. It checks all files and get the last file for data update. The name of the file to be updated appears underneath so the user knows what file to update, which is, the current month.
+
+* NEW WORKSHEET
+
+![...add screenshot!!!...](static/images/screenshot.png)
+
+If the app detects that there is no file to update when user opens the app (meaning last file is already calculated and tallied), it asks the user to create a new worksheet before starting to work.
+
+* 
+
  
 [Back to Top](#table-of-contents)
  
