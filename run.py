@@ -30,7 +30,7 @@ def get_data():
     Function to get the data from the application user
     """
     recom_msg = """
-    \nPLEASE TYPE: Name,test_keyword (separated with comma, no spaces)
+    PLEASE TYPE: Name,test_keyword (separated with comma, no spaces)
     Names can have spaces.
     Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio
     EKG= electrocardiogram, STT= stress test, HOL= holter
@@ -84,7 +84,6 @@ def update_last_worksheet(data):
     """
     To add new data to the last worksheet
     """
-    print('UPDATE FILE')
     last_worksheet = get_last_worksheet()
     last_worksheet.append_row(data)
     print('Worksheet updated!\n')
@@ -108,6 +107,7 @@ def add_new_data():
     """
     Function to get data and update file
     """
+    print('\nUPDATE FILE')
     data = get_data()
     patient_data = list(data)
     update_last_worksheet(patient_data)
@@ -284,7 +284,10 @@ def tally_worksheet():
     To close worksheet and prepare it for calculation
     """
     last_worksheet = get_last_worksheet()
-    print('You are about to tally and calculate current worksheet...')
+    tally_msg = """TALLY AND CALCULATE WORKSHEETS
+You are about to tally and calculate current worksheet...
+    """
+    print(tally_msg)
     time.sleep(1)
     reminder = """
     Remember this WON'T BE accessible for new data update.
@@ -336,7 +339,7 @@ def show_test_stats():
     """
     test_stadistics = CLINIC_SHEET.worksheet('total-tests')
     tests_row = test_stadistics.get_all_values()
-    print(f'{"TOTAL TESTS STADISTICS":^77}')
+    print(f'{"TOTAL TESTS STATISTICS":^77}')
     for row in tests_row[2:]:
         # Stackoverflow string formatting
         print(('{:^10}'*len(row)).format(*row))
@@ -368,8 +371,10 @@ def show_files():
     To show data in a worksheet
     """
     while True:
-        print('\nSELECT AN OPTION:')
-        print('A-View patients| B-Test Stadistics| C-Revenue file| D-Back')
+        view_files = """\nVIEW FILES
+Select an option:
+A-View patients| B-Test Statistics| C-Revenue file| D-Back"""
+        print(view_files)
         show_inp = input('\n').upper()
         if show_inp == 'A':
             show_patients_file()
@@ -381,11 +386,12 @@ def show_files():
             show_clinic_revenue()
             time.sleep(1)
         elif show_inp == 'D':
-            print('You are back to update/tally/view section\n')
+            print('\nYou are back to MAIN MENU\n')
             time.sleep(2)
             break
         else:
             print('Invalid option. Please type A, B, or C only')
+            time.sleep(2)
 
 
 # Own code
@@ -446,8 +452,10 @@ def clinic_work():
     - to save and exit the application
     """
     while True:
-        print('\nCHOOSE AN OPTION:')
-        work = input('A-Update file |B-Tally |C-View All |D-Exit\n').upper()
+        main_menu = """\nMAIN MENU
+Choose an option:"""
+        print(main_menu)
+        work = input('A-Update file |B-Tally |C-View Files |D-Exit\n').upper()
         if work == 'A':
             add_new_data()
         elif work == 'B':
