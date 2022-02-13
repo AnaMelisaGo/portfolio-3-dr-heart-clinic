@@ -72,13 +72,33 @@ Welcomes the user when the app is opened. It checks all files and get the last f
 
 * NEW WORKSHEET
 
-![...add screenshot!!!...](static/images/screenshot.png)
+![Create new worksheet](static/images/screenshot-create-new-worksheet.png)
 
 If the app detects that there is no file to update when user opens the app (meaning last file is already calculated and tallied), it asks the user to create a new worksheet before starting to work.
 
-* 
+* WORKING OPTIONS
 
- 
+![Working options](static/images/screenshot-work-options.png)
+
+There are different options to start working with the app:
+
+- Add data to update file
+- Tally, calculate and update worksheets
+- View worksheets data
+- Exit
+
+* ADD DATA
+
+![...add screenshot!!!...](static/images/screenshot.png)
+
+* TALLY, CALCULATE AND UPDATE WORKSHEET
+
+![...add screenshot!!!...](static/images/screenshot.png)
+
+* VIEW DATA FROM WORKSHEET
+
+![...add screenshot!!!...](static/images/screenshot.png)
+
 [Back to Top](#table-of-contents)
  
 #### Future Features:
