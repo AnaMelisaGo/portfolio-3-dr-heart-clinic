@@ -140,11 +140,11 @@ This feature includes:
  
 ## Testing
  
-[Pep8online](http://pep8online.com/) is used to check code for validation to make sure there are no errors of bugs.
+[Pep8online](http://pep8online.com/) is used to check code for validation to make sure there are no errors or bugs.
 
-Mnaual testing was done during the development of the application. The terminal is used for testing before pushing to branch to see there's no error in the code.
+Manual testing was done during the development of the application. The terminal is used for testing before pushing to branch to see there's no error in the code.
 
-Tested all new data is saved to the worksheet, new worksheet is accessible when app is running. Tested all the calculations and update each worksheet.
+Tested all new data are saved to the worksheet, new worksheet is accessible when app is running. Tested all the calculations are right and each worksheet are updated when tallied and data is calculated.
 
 Tested deployed app to make sure all functions are working well and no error or bugs.
  
@@ -178,7 +178,7 @@ Detail deployment here...
  
 * Team 11 🤜
 * To my mentor, who patiently guided me along my coding journey.
-* To my family, especially my husband and my daughter for encouraging me everyday.
+* To all my family, especially my husband and my daughter for encouraging me everyday.
 * To my work and co-workers for inspiring me in making this project.
 * To the tutors and the CI slack community.
  

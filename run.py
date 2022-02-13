@@ -487,10 +487,12 @@ def main():
 
 
 if __name__ == "__main__":
-    print('-'*72)
-    # Geeks for geeks string alignment
-    print(f'|{"":^70}|')
-    print(f'|{"Welcome to Dr. Heart Clinic":^70}|')
-    print(f'|{"":^70}|')
-    print('-'*72)
+    WELCOME_MSG = """
+-----------------------------------------------------------------------
+|                                                                     |
+|                      Welcome to Dr. Heart Clinic                    |
+|                                                                     |
+-----------------------------------------------------------------------
+"""
+    print(WELCOME_MSG)
     main()
