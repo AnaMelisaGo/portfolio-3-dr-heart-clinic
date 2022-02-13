@@ -76,11 +76,11 @@ Welcomes the user when the app is opened. It checks all files and get the last f
 
 If the app detects that there is no file to update when user opens the app (meaning last file is already calculated and tallied), it asks the user to create a new worksheet before starting to work.
 
-* WORKING OPTIONS
+* MAIN MENU
 
-![Working options](static/images/screenshot-work-options.png)
+![Working options](static/images/screenshot-main-menu.png)
 
-There are different options to start working with the app:
+There are different options in the main menu of the app:
 
 - Add data to update file
 - Tally, calculate and update worksheets
@@ -89,25 +89,64 @@ There are different options to start working with the app:
 
 * ADD DATA
 
-![...add screenshot!!!...](static/images/screenshot.png)
+![To update file with new data](static/images/screenshot-update-file.png)
+
+To enter new data to update current month worksheet:
+
+      - data should be separated with comma, no spaces.
+      - Patient name can have spaces.
+      - Use only the tests keywords to update file
+
+An example is shown to guide the user.
 
 * TALLY, CALCULATE AND UPDATE WORKSHEET
 
-![...add screenshot!!!...](static/images/screenshot.png)
+![Tally and calculate](static/images/screenshot-tally.png)
+
+When tally option is selected, a message is prompted to the user reminding that the worksheet will not be accessible for new data and a new worksheet will be created.
+
+This feature includes:
+
+      - Appending "CLOSED" text into the worksheet as a sign that the worksheet is tallied and closed
+      - Gets all the patients tests and tally them
+      -  Calculates the amount value of each tallied tests to get the revenue
+      - Updates the worksheets to save all gathered data and the calculated revenue
 
 * VIEW DATA FROM WORKSHEET
 
-![...add screenshot!!!...](static/images/screenshot.png)
+![To view worksheet data](static/images/screenshot-view-files.png)
+
+   * View patients
+
+      To view all patients name and tests.
+
+   * Test statistics
+   
+      To view all tests tally result.
+
+   * Revenue File
+   
+      To view monthly revenue by test.
 
 [Back to Top](#table-of-contents)
  
 #### Future Features:
  
-* Detail future implementations here...
+* For future features:
+
+   * Search patient and view history of patient's test
+   * Add date when updating patients data
+   * Calculate total revenue of a specific range (6 months / yearly)
  
 ## Testing
  
-Testing was ...
+[Pep8online](http://pep8online.com/) is used to check code for validation to make sure there are no errors of bugs.
+
+Mnaual testing was done during the development of the application. The terminal is used for testing before pushing to branch to see there's no error in the code.
+
+Tested all new data is saved to the worksheet, new worksheet is accessible when app is running. Tested all the calculations and update each worksheet.
+
+Tested deployed app to make sure all functions are working well and no error or bugs.
  
 #### Found Bugs and Fixes:
  
