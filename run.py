@@ -39,7 +39,7 @@ def get_data():
     """
     print(recom_msg)
     while True:
-        u_input = input("ENTER PATIENT'S DATA:\n")
+        u_input = input("Enter patient's data:\n")
         us_input = u_input.split(',')
         user_input = [x.upper() for x in us_input]
         if validate_data(user_input):
@@ -84,6 +84,7 @@ def update_last_worksheet(data):
     """
     To add new data to the last worksheet
     """
+    print('UPDATE FILE')
     last_worksheet = get_last_worksheet()
     last_worksheet.append_row(data)
     print('Worksheet updated!\n')
