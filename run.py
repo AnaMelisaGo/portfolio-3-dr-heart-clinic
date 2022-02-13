@@ -180,7 +180,10 @@ def get_test_column():
     total_test = [list_tests.count(test) for test in test_keyword]
     # geek for geeks
     result = dict(zip(test_keyword, total_test))
-    print(f'\nThe result is:\n{result}\n')
+    print('\nThe overall result is:')
+    for key, value in result.items():
+        print(f'{key} = {value}')
+        time.sleep(0.1)
     time.sleep(2)
     return total_test
 
@@ -214,7 +217,7 @@ def update_total_tests(list_value):
     """
     total_test = CLINIC_SHEET.worksheet('total-tests')
     total_test.append_row(list_value)
-    print('Updated total tests worksheet!\n')
+    print('Updated Tests Stadistics worksheet!\n')
     time.sleep(1)
 
 
@@ -224,7 +227,7 @@ def get_revenue(data):
     To calculate revenue of each patient test and total
     """
     print('Calculating revenue...')
-    time.sleep(1)
+    time.sleep(2)
     prices = CLINIC_SHEET.worksheet('dr-heart-revenue').row_values(4)[1:7]
     tests = data[1:7]
     test_rev = []
@@ -251,11 +254,13 @@ def add_data_revenue(file, rev):
     prices = [str(i)+'€' for i in rev]
     rev_result = dict(zip(keys, prices))
     print(f'\nRevenue Report in {file}:')
+    time.sleep(1)
     # Geeks for geeks string alignment
     print(f'{"TEST":<12}{"REVENUE":>5}')
     for key, val in rev_result.items():
         # Geeks for geeks string alignment
         print(f'{key:<12}{val:>5}')
+        time.sleep(0.1)
     time.sleep(2)
 
 
@@ -292,6 +297,8 @@ def tally_worksheet():
     last_worksheet.format(f'{close_cell}', CLOSED_STYLE)
     print('Preparing worksheet...')
     # From Derek Shidler Tutorial
+    time.sleep(1)
+    print('Fetching data... please wait!')
     time.sleep(1)
     calculate_total_revenue()
 
@@ -401,6 +408,33 @@ def check_last_worksheet():
         time.sleep(1)
 
 
+def continue_working():
+    """
+    To continue
+    """
+    while True:
+        cont_work = input('Continue working? Y / N\n').upper()
+        if validate_cont_answer(cont_work):
+            print('Ok!')
+            break
+    return cont_work
+
+
+def validate_cont_answer(answer):
+    """
+    To validate continue answer
+    """
+    try:
+        if answer not in ('Y' 'N'):
+            raise ValueError(
+                'Please enter Y or N only'
+            )
+    except ValueError as error:
+        print(f'Invalid answer: {error}')
+        return False
+    return True
+
+
 # Based on Derek Shidler Tutorial for Adventure game
 def clinic_work():
     """
@@ -417,7 +451,12 @@ def clinic_work():
             add_new_data()
         elif work == 'B':
             tally_worksheet()
-            check_last_worksheet()
+            cont_working = continue_working()
+            if cont_working == 'Y':
+                check_last_worksheet()
+            if cont_working == 'N':
+                exit_app()
+                break
         elif work == 'C':
             show_files()
         elif work == 'D':
