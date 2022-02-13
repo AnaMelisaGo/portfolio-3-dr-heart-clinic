@@ -284,7 +284,8 @@ def tally_worksheet():
     To close worksheet and prepare it for calculation
     """
     last_worksheet = get_last_worksheet()
-    tally_msg = """TALLY AND CALCULATE WORKSHEETS
+    tally_msg = """
+TALLY AND CALCULATE WORKSHEETS
 You are about to tally and calculate current worksheet...
     """
     print(tally_msg)
