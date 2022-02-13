@@ -148,9 +148,15 @@ Tested all new data is saved to the worksheet, new worksheet is accessible when 
 
 Tested deployed app to make sure all functions are working well and no error or bugs.
  
-#### Found Bugs and Fixes:
- 
-During manual testing...
+### Found Bugs and Fixes:
+
+My initial code for the back option was calling the function that called another function. My mentor helped me fix the problem since it can consume a lot of memory and it's not a good practice. I fixed the problem using while loops and the back option is done by breaking out from the loop.
+
+I manage to create a code to keep the working cycle without rerunning the app after tallying and calculating data. I used a while loop and validates the answer (Y or N) and if the answer is in the options it breaks the loop and afterwards it returns the validated answer and a function is executed according to the user's answer. 'Y' means create new worksheet and continue working on the new worksheet. 'N' means exiting app.
+
+String formatting was a life-saver for printing data from a worksheet into the terminal. It aligns all the data for readability.
+
+Time module is very handy for pausing code for a few seconds so that the user doesn't get lost when a message prompts. It's also handy for showing data one at a time specially in View patients option.
  
 [Back to Top](#table-of-contents)
  
