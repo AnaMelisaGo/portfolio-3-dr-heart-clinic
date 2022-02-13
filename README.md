@@ -19,7 +19,7 @@
  
 ## Welcome to Dr. Heart Clinic!
  
-![show final site image here](assets/docs/image.png)
+![The final project](static/images/screenshot-responsive.png)
 
 [This is the deployed project](https://portfolio-3-dr-heart-clinic.herokuapp.com/)
 
@@ -28,7 +28,7 @@
 ***
  
 ## What does it do and what does it need to fulfill?
-The application is to help the "Dr. Heart Clinic" to control and get data of patient's tests and visualize monthly tests stadistics and tests revenue.
+The application is to help the "Dr. Heart Clinic" to control and save data of each patient's tests and visualize all monthly tests stadistics and each tests revenue.
  
 ### Functionality of Project
 This application contains function to gather data of each patient, save data into a google spreasheet, calculate total tests and their amount value and update the clinic's monthly revenue.
@@ -39,7 +39,7 @@ This application contains function to gather data of each patient, save data int
  
 The flow chart
 
-![Flow](static/images/clinic_flow_chart.png)
+![Flow](static/images/clinic-flow-chart.png)
  
 ## Technology Used
  
@@ -94,10 +94,11 @@ Detail deployment here...
 #### Special Thanks & Acknowledgements:
  
 * Team 11 🤜
-* To my mentor, who patiently guide me along my coding journey
-* To my family, especially my daughter for encouraging me and inspiring me everyday.
+* To my mentor, who patiently guided me along my coding journey.
+* To my family, especially my husband and my daughter for encouraging me everyday.
 * To my work and co-workers for inspiring me in making this project.
+* To the tutors and the CI slack community.
  
-###### <i>Disclaimer: This project was created for educational use only as part of Code Institute's 2021 Christmas Hackathon</i>
+###### <i>Disclaimer: This project was created for educational use only as part of the portfolio 3</i>
  
 [Back to Top](#table-of-contents)
