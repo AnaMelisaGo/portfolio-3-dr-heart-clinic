@@ -24,7 +24,7 @@ def get_data():
     Function to get the data from the application user
     """
     recom_msg = """
-    PLEASE TYPE: Name,test_keyword (separated with comma, no spaces)
+    PLEASE TYPE: Name,test_keyword (separated by comma, no spaces)
     Names can have spaces.
     Test keywords: FRV= first visit, CKU= check-up, ECH= echocardio
     EKG= electrocardiogram, STT= stress test, HOL= holter
@@ -56,7 +56,7 @@ def validate_data(value):
                 )
         if data_value[1] not in test_keyword:
             raise ValueError(
-                f"Use keywords: {test_keyword}, and comma with no spaces"
+                f"Use keywords:{test_keyword}, separated by comma, no spaces"
                 )
     except ValueError as error:
         print(f"Invalid data: {error}")
@@ -358,7 +358,7 @@ def show_clinic_revenue():
 # Based on Derek Shidler Tutorial for Adventure game
 def show_files():
     """
-    To show data in a worksheet
+    To show data from a worksheet according to user's choice
     """
     while True:
         view_files = """\nVIEW FILES
@@ -408,7 +408,8 @@ def check_last_worksheet():
 # Own code
 def continue_working():
     """
-    To continue
+    A function that validates user's answer and returns answer
+    after validation
     """
     while True:
         cont_work = input("Continue working? Y / N\n").upper()
@@ -421,7 +422,8 @@ def continue_working():
 # From Love Sandwich
 def validate_cont_answer(answer):
     """
-    To validate continue answer
+    A function to validate continue answer if it is in the options.
+    Returns error message if clicked a different key
     """
     try:
         if answer not in ("Y" "N"):
