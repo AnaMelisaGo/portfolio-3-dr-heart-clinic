@@ -1,4 +1,4 @@
-# Dr Heart Clinic - Portfolio 3
+# [Dr Heart Clinic - Portfolio 3](https://portfolio-3-dr-heart-clinic.herokuapp.com/)
 ***
  
 ## Table of Contents:
@@ -21,10 +21,6 @@
  
 ![The final project](static/images/screenshot-responsive.png)
 
-[This is the deployed project](https://portfolio-3-dr-heart-clinic.herokuapp.com/)
-
-[To access the dr-heart-clinic spreadsheet](https://docs.google.com/spreadsheets/d/1WnWbp-BpXRPl4qDXBxWytC5SYB3dAyzomdwumLzJAzE/edit?usp=sharing)
- 
 ***
  
 ## What does it do and what does it need to fulfill?
@@ -161,15 +157,15 @@ Tested the deployed project to make sure all functions are working well and no e
  
 ### Found Bugs and Fixes:
 
-My initial code to go back to another menu was calling the function that called that function. My mentor helped me fix the problem since it can consume a lot of memory and it's not a good practice. I fixed the problem using while loops and the back option is done by breaking out from the loop.
+* My initial code to go back to another menu was calling the function that called that function. My mentor helped me fix the problem since it can consume a lot of memory and it's not a good practice. I fixed the problem using while loops and the back option is done by breaking out from the loop.
 
-To avoid entering typos in the tests names I created keywords for each tests. The data is validated and if the entered test keyword is in the list of keywords, the patient name and the test keyword will be saved into the current worksheet. If keyword is not in the list, an error message is prompted for the user to reenter new data.
+* To avoid entering typos in the tests names I created keywords for each tests. The data is validated and if the entered test keyword is in the list of keywords, the patient name and the test keyword will be saved into the current worksheet. If keyword is not in the list, an error message is prompted for the user to reenter new data.
 
-I manage to create a code to keep the working cycle without rerunning the app after tallying and calculating data. I used a while loop that validates the answer (Y or N) after asking to continue working, and if the answer is in the options it breaks the loop returning the validated answer. A function is executed according to the user's answer. 'Y' means create new worksheet and to maintain inside the loop and continue working. 'N' means exiting app without creating new worksheet and it means breaking out of the loop. A new one will be created when the application is rerun.
+* I manage to create a code to keep the working cycle without rerunning the app after tallying and calculating data. I used a while loop that validates the answer (Y or N) after asking to continue working, and if the answer is in the options it breaks the loop returning the validated answer. A function is executed according to the user's answer. 'Y' means create new worksheet and to maintain inside the loop and continue working. 'N' means exiting app without creating new worksheet and it means breaking out of the loop. A new one will be created when the application is rerun.
 
-String formatting was a life-saver for printing data from a worksheet into the terminal. It aligns all the data for readability. Can be aligned to the left, right, or center.
+* String formatting was a life-saver for printing data from a worksheet into the terminal. It aligns all the data for readability. Can be aligned to the left, right, or center.
 
-Time module is very handy too for pausing code for a few seconds so that the user doesn't get lost when a message prompts. It's also handy for showing data one at a time. Used in View patients option.
+* Time module is very handy too for pausing code for a few seconds so that the user doesn't get lost when a message prompts. It's also handy for showing data one at a time. Used in View patients option.
  
 [Back to Top](#table-of-contents)
  
