@@ -297,7 +297,6 @@ You are about to tally and calculate current worksheet...
     print(reminder)
     time.sleep(3)
     last_worksheet.append_row(['CLOSED'])
-    # from pretty printed Tutorials
     close_cell = last_worksheet.find('CLOSED').row
     last_worksheet.format(f'{close_cell}', CLOSED_STYLE)
     print('Preparing worksheet...')
@@ -416,6 +415,7 @@ def check_last_worksheet():
         time.sleep(1)
 
 
+# Own code
 def continue_working():
     """
     To continue
@@ -428,6 +428,7 @@ def continue_working():
     return cont_work
 
 
+# From Love Sandwich
 def validate_cont_answer(answer):
     """
     To validate continue answer
