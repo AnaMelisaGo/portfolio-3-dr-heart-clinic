@@ -1,4 +1,10 @@
+"""
+Time - provide time-related functions
+re - Python program to check string is alphanumeric or
+not using Regurlar Expression
+"""
 import time
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -42,6 +48,19 @@ def get_data():
     return user_input
 
 
+# Geek for geeks
+def is_alpha_numeric(text):
+    """
+    Regex to check is alphanumeric or not
+    """
+    regex = "^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$"
+    cor_name = re.compile(regex)
+    if re.search(cor_name, text):
+        return True
+    else:
+        return False
+
+
 # From Love Sandwich
 def validate_data(value):
     """
@@ -50,6 +69,7 @@ def validate_data(value):
     try:
         data_value = list(value)
         test_keyword = ["FRV", "CKU", "ECH", "EKG", "STT", "HOL"]
+        name_format = is_alpha_numeric(data_value[0])
         if len(data_value) != 2:
             raise ValueError(
                 "Should be 2 data value separated by comma, ex: Name,TEST"
@@ -58,6 +78,12 @@ def validate_data(value):
             raise ValueError(
                 f"Use keywords:{test_keyword}, separated by comma, no spaces"
                 )
+        if data_value[0].isnumeric():
+            raise ValueError('Number is not a valid name. Try again!')
+        if name_format is True:
+            raise ValueError('Names cannot contain numbers. Try again!')
+        if len(data_value[0]) == 0 or data_value[0].isspace():
+            raise ValueError('Name is empty. Please enter a valid name!')
     except ValueError as error:
         print(f"Invalid data: {error}")
         return False
@@ -113,7 +139,7 @@ def create_new_worksheet():
     To create a new worksheet
     """
     while True:
-        title = input("Type name for the new worksheet:\n")
+        title = input("Type name for the new worksheet:\n").lower()
         if validate_new_worksheet(title):
             print("Valid name!\n")
             break
@@ -145,13 +171,39 @@ def validate_new_worksheet(name):
     """
     try:
         all_worksheet = show_all_sheet()
+        valid_name = is_alpha_numeric(name)
         if name in all_worksheet:
             raise ValueError("Oops! Use another title for the worksheet!\n")
+        if valid_name is False:
+            raise ValueError('Use "monthyear" format, no spaces ex:jan19')
     except ValueError as error:
         print(f"Invalid name: {error}")
         time.sleep(1)
         return False
     return True
+
+
+# Own code
+def check_last_worksheet():
+    """
+    Check if last worksheet is closed and calculated
+    """
+    print("Checking files...")
+    time.sleep(1)
+    last_worksheet = get_last_worksheet()
+    check_wksheet = last_worksheet.find("CLOSED")
+    if check_wksheet:
+        new_recom = """\nYou have to create a new worksheet
+Recommendation: use current "monthyear" in naming file. No spaces.
+ex: may2016\n"""
+        print(new_recom)
+        create_new_worksheet()
+    else:
+        print("Found the last file...")
+        time.sleep(1)
+        title = last_file_name()
+        print(f"FILE NAME: {title} \n")
+        time.sleep(1)
 
 
 # Own code mostly
@@ -309,7 +361,7 @@ def show_patients_file():
         print(p_lists)
         time.sleep(0.1)
     while True:
-        p_lists_inp = input("\nSelect file:\n")
+        p_lists_inp = input("\nSelect file:\n").lower()
         if p_lists_inp in patients_file:
             show = CLINIC_SHEET.worksheet(p_lists_inp).get_all_values()
             for row in show:
@@ -382,27 +434,6 @@ A-View patients| B-Test Statistics| C-Revenue file| D-Back"""
         else:
             print("Invalid option. Please type A, B, or C only")
             time.sleep(2)
-
-
-# Own code
-def check_last_worksheet():
-    """
-    Check if last worksheet is closed and calculated
-    """
-    print("Checking files...")
-    time.sleep(1)
-    last_worksheet = get_last_worksheet()
-    check_wksheet = last_worksheet.find("CLOSED")
-    if check_wksheet:
-        print("\nYou have to create a new worksheet")
-        print('Recommendation: use current "month-year" in naming file.\n')
-        create_new_worksheet()
-    else:
-        print("Found the last file...")
-        time.sleep(1)
-        title = last_file_name()
-        print(f"FILE NAME: {title} \n")
-        time.sleep(1)
 
 
 # Own code
