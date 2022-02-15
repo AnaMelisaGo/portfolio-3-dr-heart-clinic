@@ -3,14 +3,14 @@
  
 ## Table of Contents:
 * [What does it do and what does it need to fulfill?](#what-does-it-do-and-what-does-it-need-to-fulfill)
-* [Functionality of Project](#functionality-of-project)
-* [Wireframing](#wireframing)
+   * [Functionality of Project](#functionality-of-project)
+* [Chart](#chart)
 * [Technology Used](#technology-used)
 * [Database](#database)
 * [Features](#features)
    * [Future Features](#future-features)
 * [Testing](#testing)
-   * [Defensive Design](#defensive-design)
+   * [Found Bugs and fixes](#found-bugs-and-fixes)
 * [Deployment](#deployment)
 * [Credits](#credits)
    * [Special Thanks & Acknowledgements](#special-thanks--acknowledgements)
@@ -38,10 +38,12 @@ This application contains functions such as:
  
 ## Chart
  
-The flow chart
+The flow chart used as a guide during the developement of the app.
 
 ![Flow](static/images/clinic-flow-chart.png)
- 
+
+[Back to top](#table-of-contents)
+
 ## Technology Used
  
 #### Languages, Frameworks, Editors & Version Control:
@@ -63,7 +65,7 @@ The flow chart
 #### Tools Used:
  
 * Google Drive
-* Google Sheets to store all patients data and all the calculated data
+* Google Sheets is used to store all patients data and all the calculated data
 
 [Back to Top](#table-of-contents)
 
@@ -172,7 +174,9 @@ This feature includes:
 * I added a code to vaidate if entered patient name contains numbers or if name is empty. If patient's name are only numbers or contain any number or an empty string an error message will prompt for the user to enter the name again.
 
 * I also added the same validation code when naming a new worksheet. When creating new worksheet, the name should be the month and year. To avoid using any names I added a validation code that returns True if its alphanumeric or False if it's not, so that the user is reminded on how to name a worksheet. If it's not alphanumeric, an error message prompts to enter a name in a "monthyear" format only.
- 
+
+* When viewing files, I made it possible to access a worksheet eventhough users enter characters in capital letters. I used the method lower to make the characters in lowercase. I used the same method in naming a new worksheet to make the worksheet name in lowercase.
+
 [Back to Top](#table-of-contents)
  
 ## Deployment
