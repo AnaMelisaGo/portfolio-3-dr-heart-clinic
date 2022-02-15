@@ -48,7 +48,7 @@ def get_data():
     return user_input
 
 
-# Geek for geeks
+# Geek for geeks - To check if a string is alphanumeric
 def is_alpha_numeric(text):
     """
     Regex to check is alphanumeric or not
