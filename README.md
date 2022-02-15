@@ -108,7 +108,7 @@ To enter new data into the current month worksheet:
 
 * TALLY, CALCULATE AND UPDATE WORKSHEETS
 
-![Tally and calculate](static/images/screenshot-tally.png)
+![Tally and calculate](static/images/screenshot-tally-calc-data.png)
 
 When tally option is selected, a message is prompted to the user reminding that the worksheet will be unaccessible for new data and a new worksheet should be created.
 
