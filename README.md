@@ -213,6 +213,7 @@ This feature includes:
 * Geeks for geeks
    * [To convert two list into dictionary](https://www.geeksforgeeks.org/python-convert-two-lists-into-a-dictionary/)
    * [String alignment f-string](https://www.geeksforgeeks.org/string-alignment-in-python-f-string/)
+   * [How to check if a string is alphanumeric](https://www.geeksforgeeks.org/how-to-check-string-is-alphanumeric-or-not-using-regular-expression/)
 * Stackoverflow
    * [To print a dictionary horizontally with alignment](https://stackoverflow.com/questions/17330139/python-printing-a-dictionary-as-a-horizontal-table-with-headers)
 * This pointer
