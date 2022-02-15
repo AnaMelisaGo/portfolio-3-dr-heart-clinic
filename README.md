@@ -168,6 +168,10 @@ This feature includes:
 * String formatting was a life-saver for printing data from a worksheet into the terminal. It aligns all the data for readability. Can be aligned to the left, right, or center.
 
 * Time module is very handy too for pausing code for a few seconds so that the user doesn't get lost when a message prompts. It's also handy for showing data one at a time. Used in View patients option.
+
+* I added a code to vaidate if entered patient name contains numbers or if name is empty. If patient's name are only numbers or contain any number or an empty string an error message will prompt for the user to enter the name again.
+
+* I also added the same validation code when naming a new worksheet. When creating new worksheet, the name should be the month and year. To avoid using any names I added a validation code that returns True if its alphanumeric or False if it's not, so that the user is reminded on how to name a worksheet. If it's not alphanumeric, an error message prompts to enter a name in a "monthyear" format only.
  
 [Back to Top](#table-of-contents)
  
