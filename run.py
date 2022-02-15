@@ -281,7 +281,7 @@ You are about to tally and calculate current worksheet...
     print(tally_msg)
     time.sleep(1)
     reminder = """
-    Remember this WON'T BE accessible for new data update.
+    Remember this WILL NOT BE accessible for new data update.
     Once tallied, a new worksheet SHOULD be created.
     """
     print(reminder)

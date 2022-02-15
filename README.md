@@ -100,7 +100,7 @@ There are different options in the main menu of the app:
 
 To enter new data into the current month worksheet:
 
-      - data should be separated with comma, no spaces.
+      - The data should be separated by comma and no spaces in between.
       - Patient's name can have spaces.
       - Use only the tests keywords to update file
       - Only two data is allowed: NAME,TEST-KEYWORD
@@ -114,9 +114,10 @@ When tally option is selected, a message is prompted to the user reminding that 
 
 This feature includes:
 
-      - Appending "CLOSED" keyword into the worksheet as an indication that the worksheet is tallied and closed
+      - Appending "CLOSED" keyword into the worksheet
+      as an indication that the worksheet is tallied and closed
       - Gets all the patients tests and tally them
-      -  Calculates the amount value of each tallied tests to get the revenue
+      - Calculates the amount value of each tallied tests to get the revenue
       - Updates the worksheets to save all gathered data and the calculated revenue
 
 * VIEW DATA FROM WORKSHEET
@@ -141,25 +142,26 @@ This feature includes:
  
 * For future features:
 
+   * Create a patient's database
    * Search patient and view history of patient's test
-   * Add date when entering new data to update worksheet
+   * Add date when entering new data
    * Calculate total revenue of a specific range (6 months / yearly)
  
 ## Testing
  
-[Pep8online](http://pep8online.com/) was used to check the Python code and to make sure there are no errors or bugs.
+* [Pep8online](http://pep8online.com/) was used to check the Python code and to make sure there are no errors or bugs.
 
-Manual testing was done during the development of the project. The terminal was used for testing before pushing to the main branch to make sure there's no error in the code.
+* Manual testing was done during the development of the project. The terminal was used for testing before pushing to the main branch to make sure there's no error in the code.
 
-Tested all new data are saved to the worksheet, new worksheet is accessible when app is running. Tested all the calculations are correct and each worksheet are updated with the tallied and calculated results.
+* Tested all new data are saved to the worksheet, new worksheet is accessible when app is running. Tested all the calculations are correct and each worksheet are updated with the tallied and calculated results.
 
-Tested the deployed project to make sure all functions are working well and no error or bugs are found.
+* Tested the deployed project to make sure all functions are working well and no error or bugs are found.
  
 ### Found Bugs and Fixes:
 
 * My initial code to go back to another menu was calling the function that called that function. My mentor helped me fix the problem since it can consume a lot of memory and it's not a good practice. I fixed the problem using while loops and the back option is done by breaking out from the loop.
 
-* To avoid entering typos in the tests names I created keywords for each tests. The data is validated and if the entered test keyword is in the list of keywords, the patient name and the test keyword will be saved into the current worksheet. If keyword is not in the list, an error message is prompted for the user to reenter new data.
+* To avoid entering typos in the tests names I created keywords for each tests. The entered data is validated and if the entered test keyword is in the list of keywords, the patient name and the test keyword will be saved into the current worksheet. If keyword is not in the list, an error message is prompted for the user to reenter new data.
 
 * I manage to create a code to keep the working cycle without rerunning the app after tallying and calculating data. I used a while loop that validates the answer (Y or N) after asking to continue working, and if the answer is in the options it breaks the loop returning the validated answer. A function is executed according to the user's answer. 'Y' means create new worksheet and to maintain inside the loop and continue working. 'N' means exiting app without creating new worksheet and it means breaking out of the loop. A new one will be created when the application is rerun.
 
@@ -190,7 +192,7 @@ Tested the deployed project to make sure all functions are working well and no e
 6. Copy the `creds.json` file from the gitpod workspace and paste it into the `Value` field. Click `Add` button.
 7. Add `Key`: PORT `Value`: 8000 to improve compatibility with other Python libraries to avoid failed deployment.
 8. Click `Add buildpack`, select `Python` and click `Save changes`.
-9. Click `Add buildpack` again, select `node.js` and click `Save changes`. Node.js is needed to handle the mock terminal code. Make sure the buildpack are in the right order.
+9. Click `Add buildpack` again, select `node.js` and click `Save changes`. Make sure the buildpack are in the right order.
 10. Go to the menu bar again (below the projects name) and click `Deploy`.
 11. Select `Github` as the deployment method and click `Connect to Github` button.
 12. In the Github authorization popup window login to Github using Github username and click `Authorize Heroku` button.
@@ -198,7 +200,6 @@ Tested the deployed project to make sure all functions are working well and no e
 14. Scroll down to select `Automatic deploys` option on every push to the chosen branch or `Manual deploy` option.
 15. If `Manual deploy` is chosen, click `Deploy branch` button. Heroku will start to build the application. Python, the dependencies, node.js and all the packages to run the mock terminal will be installed.
 16. When app is deployed, a `View` button appears underneath. Click button to open the deployed project.
-17. Once inside the application, click `Run program` to start the app.
  
 [Back to Top](#table-of-contents)
  
