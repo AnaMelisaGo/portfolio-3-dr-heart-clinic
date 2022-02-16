@@ -81,7 +81,7 @@ Welcomes the user when the app starts. First it checks all files and get the las
 
 * CREATE NEW WORKSHEET
 
-![Create new worksheet](static/images/screenshot-new-worksheet.png)
+![Create new worksheet](static/images/screenshot-create-new-worksheet.png)
 
 If the app detects that there is no file to update when user runs the app (meaning, the last file is already calculated and tallied), it asks the user to create a new worksheet before starting to work.
 
