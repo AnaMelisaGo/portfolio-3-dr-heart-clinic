@@ -175,7 +175,7 @@ def validate_new_worksheet(name):
         if name in all_worksheet:
             raise ValueError("Oops! Use another title for the worksheet!\n")
         if valid_name is False:
-            raise ValueError('Use "monthyear" format, no spaces ex:jan19')
+            raise ValueError('Use "monthyear" format, no spaces ex:jan2019')
     except ValueError as error:
         print(f"Invalid name: {error}")
         time.sleep(1)
