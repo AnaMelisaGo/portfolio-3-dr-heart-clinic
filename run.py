@@ -432,7 +432,7 @@ A-View patients| B-Test Statistics| C-Revenue file| D-Back"""
             time.sleep(2)
             break
         else:
-            print("Invalid option. Please type A, B, or C only")
+            print("Oops! Choose A, B, C or D only")
             time.sleep(2)
 
 
@@ -495,7 +495,7 @@ Choose an option:"""
             exit_app()
             break
         else:
-            print("Choose A, B, or C only")
+            print("Oops! Choose A, B, C or D only")
             time.sleep(2)
 
 
